@@ -37,7 +37,13 @@ You may need to adjust the compilers in ``Makefile_gnu``. If in doubt, run ``mak
 MultiNest Installation
 ~~~~~~~~~~~~~~~~~~~~~~
 
-(NB MultiNest will be on github later this week).
+NB:
+
+- MultiNest will be on github later this week.
+- PyMultiNest has a two issues:
+  1. import conflict with pypolychord ( https://github.com/JohannesBuchner/PyMultiNest/pull/119 )
+  2. dumper issue ( https://github.com/JohannesBuchner/PyMultiNest/pull/120 )
+- Once these are resolved, one should switch to Johannes Buchner's `PyMultiNest <https://github.com/JohannesBuchner/PyMultiNest.git>`__ 
 
 .. code:: bash
    
@@ -46,7 +52,7 @@ MultiNest Installation
    cmake ..
    make
    cd ../../
-   git clone https://github.com/JohannesBuchner/PyMultiNest.git
+   git clone https://github.com/williamjameshandley/PyMultiNest.git
    cd PyMultiNest
    python setup.py install --user
    cd 
