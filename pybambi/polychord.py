@@ -1,12 +1,13 @@
 import pypolychord
 from pypolychord.settings import PolyChordSettings
 
-def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root):
+def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, num_repeats):
     nDerived = 0
     settings = PolyChordSettings(nDims, nDerived)
     settings.root_dir = 'chains/polychord/'
     settings.file_root = root
     settings.nlive = nlive
+    settings.num_repeats = num_repeats
     settings.do_clustering = True
     settings.read_resume = False
 
