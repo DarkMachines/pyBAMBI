@@ -9,8 +9,16 @@ pyBAMBI
 :Homepage: https://github.com/williamjameshandley/pyBAMBI
 :Collaboration website: https://darkmachines.org
 
-Installation instructions for pypolychord and pymultinest
----------------------------------------------------------
+Notes
+-----
+
+Currently, there is a test script in test.py, which shows how to call pyBAMBI.
+The main piece of work to be done is to implement neural network modelling in
+``pybambi/dumper.py`` from the view onto the live points every nlive iterations.
+
+
+Installation instructions
+-------------------------
 
 PolyChord Installation
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -53,7 +61,6 @@ Use the dumper functions to train a neural network.
 To Do
 -----
 
-- Establish License
-- Unified wrapper for both PolyChord and MultiNest
 - Choose neural network strategy
+- Establish License
 - Continuous integration?

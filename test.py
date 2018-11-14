@@ -2,7 +2,7 @@ from pybambi import run_pyBAMBI
 
 from numpy import pi, log, sqrt
 
-nDims = 10
+nDims = 3
 
 def loglikelihood(theta):
     """ Spherical Gaussian Likelihood """
