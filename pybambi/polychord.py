@@ -1,11 +1,12 @@
 import pypolychord
 from pypolychord.settings import PolyChordSettings
 
-def run_polychord(loglikelihood, prior, dumper, nDims):
+def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root):
     nDerived = 0
     settings = PolyChordSettings(nDims, nDerived)
-    settings.file_root = 'gaussian'
-    settings.nlive = 400
+    settings.root_dir = 'chains/polychord/'
+    settings.file_root = root
+    settings.nlive = nlive
     settings.do_clustering = True
     settings.read_resume = False
 

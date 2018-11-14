@@ -1,8 +1,9 @@
-import pymultinest
+import os
 import numpy
+import pymultinest
 from numpy.ctypeslib import as_array
 
-def run_multinest(loglikelihood, prior, dumper, nDims):
+def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root):
 
     def multinest_prior(cube, ndim, nparams):
         return prior(as_array(cube,shape=(nparams,)))
@@ -14,6 +15,10 @@ def run_multinest(loglikelihood, prior, dumper, nDims):
                          physLive,posterior,paramConstr,
                          maxLogLike,logZ,logZerr,nullcontext):
         dumper(physLive)
+    basedir = 'chains/multinest'
+    basename = os.path.join(root)
 
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
 
-    pymultinest.run(multinest_loglikelihood, multinest_prior, nDims, resume=False, verbose=True, dump_callback=multinest_dumper)
+    pymultinest.run(multinest_loglikelihood, multinest_prior, nDims, resume=False, verbose=True, dump_callback=multinest_dumper, n_iter_before_update=nlive//10, n_live_points=nlive, outputfiles_basename=basename)

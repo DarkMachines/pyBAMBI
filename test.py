@@ -2,19 +2,15 @@ from pybambi import run_pyBAMBI
 
 from numpy import pi, log, sqrt
 
-nDims = 3
+nDims = 10
 
 def loglikelihood(theta):
-    """ Simple Gaussian Likelihood """
+    """ Spherical Gaussian Likelihood """
     sigma = 0.1
     nDims = len(theta)
-
-    r2 = sum(theta**2)
-
-    logL = -log(2*pi*sigma*sigma)*nDims/2.0
-    logL += -r2/2/sigma/sigma
-
+    logL = -log(2*pi*sigma*sigma)*nDims/2.0 - sum((theta/sigma)**2) /2
     return logL
+
 
 def prior(cube):
     """ prior mapping [0,1] -> [-1, 1]"""
