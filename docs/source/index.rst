@@ -5,7 +5,7 @@
    :caption: Contents
 
    Introduction <intro>
-   API <bambi>
+   API <pybambi>
 
 .. include:: ../../README.rst
 
