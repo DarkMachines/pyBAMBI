@@ -40,9 +40,9 @@ MultiNest Installation
 NB:
 
 - MultiNest will be on github later this week.
-- PyMultiNest has a two issues:
-  1. import conflict with pypolychord ( https://github.com/JohannesBuchner/PyMultiNest/pull/119 )
-  2. dumper issue ( https://github.com/JohannesBuchner/PyMultiNest/pull/120 )
+- PyMultiNest has a two issues ( https://github.com/JohannesBuchner/PyMultiNest/pull/119 ):
+   1. import conflict with pypolychord
+   2. dumper issue
 - Once these are resolved, one should switch to Johannes Buchner's `PyMultiNest <https://github.com/JohannesBuchner/PyMultiNest.git>`__ 
 
 .. code:: bash
@@ -70,4 +70,4 @@ To Do
 
 - Choose neural network strategy (`Keras <https://keras.io/>`__?)
 - Establish License
-- Should we make the repository public? (allows `CI <https://docs.python-guide.org/scenarios/ci/>`__ and `PR <https://help.github.com/articles/about-pull-requests/>` workflows for free)
+- Should we make the repository public? (allows `CI <https://docs.python-guide.org/scenarios/ci/>`__ and `PR <https://help.github.com/articles/about-pull-requests/>`__ workflows for free)
