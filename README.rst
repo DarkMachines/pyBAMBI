@@ -64,9 +64,10 @@ Key idea
 
 Use the dumper functions to train a neural network.
 
+
 To Do
 -----
 
-- Choose neural network strategy
+- Choose neural network strategy (`Keras <https://keras.io/>`__?)
 - Establish License
-- Continuous integration?
+- Should we make the repository public? (allows `CI <https://docs.python-guide.org/scenarios/ci/>`__ and `PR <https://help.github.com/articles/about-pull-requests/>` workflows for free)
