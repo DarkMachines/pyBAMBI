@@ -1,3 +1,5 @@
+""" Driving routine for pyBAMBI"""
+
 import os
 from pybambi.dumper import dumper
 

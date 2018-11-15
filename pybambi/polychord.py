@@ -1,3 +1,5 @@
+""" Wrapper for PyPolyChord """
+
 import os
 import pypolychord
 from pypolychord.settings import PolyChordSettings

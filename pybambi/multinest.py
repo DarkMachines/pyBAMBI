@@ -1,3 +1,5 @@
+""" Wrapper for PyMultiNest """
+
 import os
 import pymultinest
 from numpy.ctypeslib import as_array

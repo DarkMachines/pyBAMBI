@@ -1,3 +1,5 @@
+""" Function giving access to live points """
+
 def dumper(live):
     """ Dumper function giving access to the live points
     
