@@ -70,4 +70,4 @@ To Do
 
 - Choose neural network strategy (`Keras <https://keras.io/>`__?)
 - Establish License
-- Should we make the repository public? (allows `CI <https://docs.python-guide.org/scenarios/ci/>`__ and `PR <https://help.github.com/articles/about-pull-requests/>` workflows for free)
+- Should we make the repository public? (allows `CI <https://docs.python-guide.org/scenarios/ci/>`__ and `PR <https://help.github.com/articles/about-pull-requests/>__` workflows for free)
