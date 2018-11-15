@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-
-from setuptools import setup, Command, find_packages
+from setuptools import setup, find_packages
 
 
 def readme():
