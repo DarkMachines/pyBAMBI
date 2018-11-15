@@ -1,3 +1,4 @@
+import os
 from pybambi.dumper import dumper
 
 
@@ -16,7 +17,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
 
     root: str
         root of filename.
-        Default 'test'
+        Default 'chains/<nested_sampler>'
 
     num_repeats: int
         number of repeats for polychord.
@@ -28,7 +29,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     """
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
     nlive = kwargs.pop('nlive', nDims*25)
-    root = kwargs.pop('root', 'test')
+    root = kwargs.pop('root', 'chains/%s' % nested_sampler)
     num_repeats = kwargs.pop('num_repeats', nDims*5)
     eff = kwargs.pop('eff', 0.5**nDims)
 
@@ -37,6 +38,10 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
+
+    basedir = os.path.dirname(root)
+    if not os.path.exists(basedir):
+        os.makedirs(basedir)
 
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
