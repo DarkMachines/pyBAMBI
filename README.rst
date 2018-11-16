@@ -20,51 +20,13 @@ The main piece of work to be done is to implement neural network modelling in
 
 Installation instructions
 -------------------------
-
-PolyChord Installation
-~~~~~~~~~~~~~~~~~~~~~~
-
-.. code:: bash
-   
-   git clone https://github.com/PolyChord/PolyChordLite
-   cd PolyChordLite
-   make MPI=
-   python setup.py install --user
-   cd
-   python -c 'import pypolychord'
-
-You may need to adjust the compilers in ``Makefile_gnu``. If in doubt, run ``make veryclean`` to restart. Remove ``MPI=`` to compile with MPI, but be warned, the MPI you link to must be the same as the one that you compiled ``mpi4py`` with.
-
-MultiNest Installation
-~~~~~~~~~~~~~~~~~~~~~~
-
-NB:
-
-- MultiNest will be on github later this week.
-- PyMultiNest has a two issues ( https://github.com/JohannesBuchner/PyMultiNest/pull/119 ):
-   1. import conflict with pypolychord
-   2. dumper issue
-- Once these are resolved, one should switch to Johannes Buchner's `PyMultiNest <https://github.com/JohannesBuchner/PyMultiNest.git>`__ 
-
-.. code:: bash
-   
-   git clone https://github.com/farhanferoz/MultiNest
-   cd MultiNest/build
-   cmake ..
-   make
-   cd ../../
-   git clone https://github.com/williamjameshandley/PyMultiNest.git
-   cd PyMultiNest
-   python setup.py install --user
-   cd 
-   python -c 'import pymultinest'
-
+- `MultiNest installation <https://github.com/williamjameshandley/pyBAMBI/wiki/MultiNest-installation>`__
+- `PolyChord installation <https://github.com/williamjameshandley/pyBAMBI/wiki/PolyChord-installation>`__
 
 Key idea
 --------
 
 Use the dumper functions to train a neural network.
-
 
 To Do
 -----
