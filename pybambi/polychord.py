@@ -45,7 +45,7 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     root: str
         base name for output files
 
-    repeats: int
+    num_repeats: int
         Length of chain to generate new live points
     """
     nDerived = 0
@@ -53,7 +53,7 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     settings.base_dir = os.path.dirname(root)
     settings.file_root = os.path.basename(root)
     settings.nlive = nlive
-    settings.num_repeats = repeats
+    settings.num_repeats = num_repeats
     settings.do_clustering = True
     settings.read_resume = False
 
