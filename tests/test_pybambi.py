@@ -2,6 +2,9 @@ import pytest
 import pybambi
 import numpy
 import shutil
+import os
+if os.environ["MPI"]:
+    from mpi4py import MPI
 
 
 def test_run_pyBAMBI_inputs():
@@ -43,7 +46,10 @@ def test_run_pyBAMBI_multinest():
                         root='.chains/polychord', nlive=50)
     assert(loglikelihood.called==True)
     assert(prior.called==True)
-    shutil.rmtree('.chains')
+    try:
+        shutil.rmtree('.chains')
+    except FileNotFoundError:
+        pass
 
 
 def test_run_pyBAMBI_polychord():
@@ -54,4 +60,7 @@ def test_run_pyBAMBI_polychord():
                         root='.chains/multinest', nlive=50)
     assert(loglikelihood.called==True)
     assert(prior.called==True)
-    shutil.rmtree('.chains')
+    try:
+        shutil.rmtree('.chains')
+    except FileNotFoundError:
+        pass

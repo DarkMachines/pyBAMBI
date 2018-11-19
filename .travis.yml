@@ -60,7 +60,12 @@ install:
     - pip install pytest pytest-cov codecov
 
 script:
-    - python -m pytest tests --cov=pybambi
+    - if [ "$MPI" ];
+      then
+          mpirun -np 2 python -m pytest tests --cov=pybambi;
+      else
+          python -m pytest tests --cov=pybambi;
+      fi
 
 after_success:
     - codecov
