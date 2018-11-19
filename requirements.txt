@@ -1,1 +1,4 @@
+scipy
 numpy
+sphinx
+numpydoc
