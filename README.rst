@@ -33,6 +33,16 @@ Installation instructions
 - `MultiNest installation <https://github.com/DarkMachines/pyBAMBI/wiki/MultiNest-installation>`__
 - `PolyChord installation <https://github.com/DarkMachines/pyBAMBI/wiki/PolyChord-installation>`__
 
+You can run the tests with:
+
+.. code:: bash
+   python -m pytest tests
+
+or 
+
+.. code:: bash
+   python setup.py test
+
 Key idea
 --------
 

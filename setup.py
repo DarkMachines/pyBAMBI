@@ -34,6 +34,7 @@ setup(name='pyBAMBI',
           },
       tests_require=['pytest'],
       include_package_data=True,
+      license='MIT',
       classifiers=[
                    'Development Status :: 1 - Planning',
                    'Intended Audience :: Developers',

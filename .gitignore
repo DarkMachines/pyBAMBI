@@ -1,5 +1,7 @@
 __pycache__
-*.py
+*.pyc
 chains
 .coverage
 docs/build/
+.eggs/
+pyBAMBI.egg-info/
