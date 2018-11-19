@@ -3,8 +3,7 @@ import pybambi
 import numpy
 import shutil
 import os
-if os.environ["MPI"]:
-    from mpi4py import MPI
+if os.environ["MPI"]: from mpi4py import MPI
 
 
 def test_run_pyBAMBI_inputs():
@@ -48,8 +47,7 @@ def test_run_pyBAMBI_multinest():
     assert(prior.called==True)
     try:
         shutil.rmtree('.chains')
-    except FileNotFoundError:
-        pass
+    except: pass
 
 
 def test_run_pyBAMBI_polychord():
@@ -62,5 +60,4 @@ def test_run_pyBAMBI_polychord():
     assert(prior.called==True)
     try:
         shutil.rmtree('.chains')
-    except FileNotFoundError:
-        pass
+    except: pass

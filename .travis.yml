@@ -62,7 +62,7 @@ install:
 script:
     - if [ "$MPI" ];
       then
-          mpirun -np 2 python -m pytest tests --cov=pybambi;
+          mpirun -np 2 python -m pytest tests;
       else
           python -m pytest tests --cov=pybambi;
       fi
