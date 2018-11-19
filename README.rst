@@ -13,8 +13,8 @@ pyBAMBI
 .. image:: https://travis-ci.org/DarkMachines/pyBAMBI.svg?branch=master
    :target: https://travis-ci.org/DarkMachines/pyBAMBI
    :alt: Build Status
-.. image:: https://codecov.io/gh/DarkMachines/primordial/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/DarkMachines/primordial
+.. image:: https://codecov.io/gh/DarkMachines/pyBAMBI/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/DarkMachines/pyBAMBI
    :alt: Test Coverage Status
 
 Notes
