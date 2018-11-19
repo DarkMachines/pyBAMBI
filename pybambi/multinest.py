@@ -1,7 +1,6 @@
 """ Wrapper for PyMultiNest """
 
 import os
-import pymultinest
 from numpy.ctypeslib import as_array
 
 
@@ -23,18 +22,18 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
     prior: callable
         tranformation function taking a single parameter
 
-        - cube: numpy.array 
+        - cube: numpy.array
                 hypercube parameters, `shape=(nDims,)`
 
-        returning physical parameters (`numpy.array`) 
+        returning physical parameters (`numpy.array`)
 
     dumper: callable
         access function called every nlive iterations giving a window onto
         current live points. Single parameter, no return:
 
         - live: numpy.array
-               live parameters and loglikelihoods, `shape=(nlive,nDims+1)` 
-                  
+               live parameters and loglikelihoods, `shape=(nlive,nDims+1)`
+
     nDims: int
         Dimensionality of sampling space
 
@@ -47,6 +46,8 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
     eff: float
         Efficiency of MultiNest
     """
+    import pymultinest
+
     basedir = os.path.dirname(root)
     if not os.path.exists(basedir):
         os.makedirs(basedir)

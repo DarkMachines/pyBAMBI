@@ -1,8 +1,5 @@
 """ Wrapper for PyPolyChord """
-
 import os
-import pypolychord
-from pypolychord.settings import PolyChordSettings
 
 
 def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
@@ -24,18 +21,18 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     prior: callable
         tranformation function taking a single parameter
 
-        - cube: numpy.array 
+        - cube: numpy.array
                 hypercube parameters, `shape=(nDims,)`
 
-        returning physical parameters (`numpy.array`) 
+        returning physical parameters (`numpy.array`)
 
     dumper: callable
         access function called every nlive iterations giving a window onto
         current live points. Single parameter, no return:
 
         - live: numpy.array
-               live parameters and loglikelihoods, `shape=(nlive,nDims+1)` 
-                  
+               live parameters and loglikelihoods, `shape=(nlive,nDims+1)`
+
     nDims: int
         Dimensionality of sampling space
 
@@ -48,6 +45,9 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     num_repeats: int
         Length of chain to generate new live points
     """
+    import pypolychord
+    from pypolychord.settings import PolyChordSettings
+
     nDerived = 0
     settings = PolyChordSettings(nDims, nDerived)
     settings.base_dir = os.path.dirname(root)
