@@ -2,8 +2,7 @@ language: python
 
 os:
     - linux
-      # @TODO make it test on osx
-      #  - osx
+    - osx
 
 python:
     - "2.7"
@@ -15,6 +14,15 @@ env:
   - MPI=1
   - MPI=
 
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+      then 
+          brew update; 
+          brew install python3;
+          virtualenv venv -p python3;
+          source venv/bin/activate;
+      fi
+
 install:
     - mkdir external
     - cd external
@@ -22,12 +30,22 @@ install:
     # MPI installation
     - if [ "$MPI" ];
       then
-          sudo apt-get install openmpi-bin libopenmpi-dev;
+          if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+          then 
+              brew install open-mpi;
+          else
+              sudo apt-get install openmpi-bin libopenmpi-dev;
+          fi;
           pip install mpi4py;
       fi
 
     # PolyChord install
-    - sudo apt-get install gfortran 
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+      then 
+          brew install gfortran;
+      else
+          sudo apt-get install gfortran;
+      fi;
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
     - make MPI=$MPI pypolychord
@@ -40,7 +58,12 @@ install:
     - cd ..
 
     # MultiNest install
-    - sudo apt-get install gfortran libblas3 liblapack3
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
+      then 
+          brew install gfortran lapack blas;
+      else
+          sudo apt-get install gfortran libblas3 liblapack3;
+      fi
     - git clone https://github.com/JohannesBuchner/MultiNest MultiNest
     - cd MultiNest/build
     - cmake ..
