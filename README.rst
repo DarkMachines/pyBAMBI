@@ -6,13 +6,16 @@ pyBAMBI
 :Author: Dark Machines collaboration
 :Organiser: Will Handley
 :Version: 0.0.0
-:GitHub: https://github.com/williamjameshandley/pyBAMBI
+:GitHub: https://github.com/DarkMachines/pyBAMBI
 :Website: https://darkmachines.org
 :Paper: https://arxiv.org/abs/1110.2997
 
-.. image:: https://travis-ci.org/williamjameshandley/pyBAMBI.svg?branch=master
-   :target: https://travis-ci.org/williamjameshandley/pyBAMBI
+.. image:: https://travis-ci.org/DarkMachines/pyBAMBI.svg?branch=master
+   :target: https://travis-ci.org/DarkMachines/pyBAMBI
    :alt: Build Status
+.. image:: https://codecov.io/gh/DarkMachines/primordial/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/DarkMachines/primordial
+   :alt: Test Coverage Status
 
 Notes
 -----
@@ -24,8 +27,8 @@ The main piece of work to be done is to implement neural network modelling in
 
 Installation instructions
 -------------------------
-- `MultiNest installation <https://github.com/williamjameshandley/pyBAMBI/wiki/MultiNest-installation>`__
-- `PolyChord installation <https://github.com/williamjameshandley/pyBAMBI/wiki/PolyChord-installation>`__
+- `MultiNest installation <https://github.com/DarkMachines/pyBAMBI/wiki/MultiNest-installation>`__
+- `PolyChord installation <https://github.com/DarkMachines/pyBAMBI/wiki/PolyChord-installation>`__
 
 Key idea
 --------
