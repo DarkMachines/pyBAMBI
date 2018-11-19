@@ -16,6 +16,9 @@ pyBAMBI
 .. image:: https://codecov.io/gh/DarkMachines/pyBAMBI/branch/master/graph/badge.svg
    :target: https://codecov.io/gh/DarkMachines/pyBAMBI
    :alt: Test Coverage Status
+.. image:: https://readthedocs.org/projects/pybambi/badge/?version=latest
+   :target: https://pybambi.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
 
 Notes
 -----
