@@ -11,18 +11,33 @@ python:
     - "3.5"
     - "3.6"
 
+env:
+  - MPI=1
+  - MPI=
+
 install:
     - mkdir external
     - cd external
+
+    # MPI installation
+    - if [ "$MPI" ];
+      then
+          sudo apt-get install openmpi-bin libopenmpi-dev;
+          pip install mpi4py;
+      fi
 
     # PolyChord install
     - sudo apt-get install gfortran 
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
-    - make MPI=
-    - python setup.py install
+    - make MPI=$MPI pypolychord
+    - if [ "$MPI" ];
+      then
+          CC=mpicc CXX=mpicxx python setup.py install;
+      else
+          python setup.py install;
+      fi
     - cd ..
-    - python -c 'import pypolychord'
 
     # MultiNest install
     - sudo apt-get install gfortran libblas3 liblapack3
@@ -38,7 +53,6 @@ install:
     - cd PyMultiNest
     - python setup.py install
     - cd ..
-    - python -c 'import pymultinest'
 
     # requirements install
     - cd ..
