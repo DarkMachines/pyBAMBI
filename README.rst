@@ -10,6 +10,10 @@ pyBAMBI
 :Website: https://darkmachines.org
 :Paper: https://arxiv.org/abs/1110.2997
 
+.. image:: https://travis-ci.org/williamjameshandley/pyBAMBI.svg?branch=master
+   :target: https://travis-ci.org/williamjameshandley/pyBAMBI
+   :alt: Build Status
+
 Notes
 -----
 

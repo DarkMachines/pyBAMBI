@@ -1,0 +1,51 @@
+language: python
+
+os:
+    - linux
+      # @TODO make it test on osx
+      #  - osx
+
+python:
+    #- "2.7"
+    #- "3.5"
+    - "3.6"
+
+install:
+    - mkdir external
+    - cd external
+
+    # PolyChord install
+    - sudo apt-get install gfortran 
+    - git clone https://github.com/PolyChord/PolyChordLite PolyChord
+    - cd PolyChord
+    - make MPI=
+    - python setup.py install
+    - cd ..
+    - python -c 'import pypolychord'
+
+    # MultiNest install
+    - sudo apt-get install gfortran libblas3 liblapack3
+    - git clone https://github.com/JohannesBuchner/MultiNest MultiNest
+    - cd MultiNest/build
+    - cmake ..
+    - make
+    - cd ../../
+    - export LD_LIBRARY_PATH=$PWD/MultiNest/lib/:${LD_LIBRARY_PATH} 
+
+    # PyMultiNest install
+    - git clone https://github.com/williamjameshandley/PyMultiNest PyMultiNest
+    - cd PyMultiNest
+    - python setup.py install
+    - cd ..
+    - python -c 'import pymultinest'
+
+    # requirements install
+    - cd ..
+    - pip install -r requirements.txt
+    - pip install pytest pytest-cov codecov
+
+script:
+    - python -m pytest tests --cov=pybambi
+
+after_success:
+    - codecov
