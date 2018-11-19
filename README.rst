@@ -7,6 +7,7 @@ pyBAMBI
 :Organiser: Will Handley
 :Version: 0.0.0
 :GitHub: https://github.com/DarkMachines/pyBAMBI
+:Documentation: https://pybambi.readthedocs.io/
 :Website: https://darkmachines.org
 :Paper: https://arxiv.org/abs/1110.2997
 
@@ -19,6 +20,12 @@ pyBAMBI
 .. image:: https://readthedocs.org/projects/pybambi/badge/?version=latest
    :target: https://pybambi.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+
+Quick links
+-----------
+
+- `Contributing <https://github.com/DarkMachines/pyBAMBI/blob/master/.github/CONTRIBUTING.md>`__
+- `Code of conduct <https://github.com/DarkMachines/pyBAMBI/blob/master/.github/CODE_OF_CONDUCT.md>`__
 
 Notes
 -----
@@ -33,15 +40,23 @@ Installation instructions
 - `MultiNest installation <https://github.com/DarkMachines/pyBAMBI/wiki/MultiNest-installation>`__
 - `PolyChord installation <https://github.com/DarkMachines/pyBAMBI/wiki/PolyChord-installation>`__
 
-You can run the tests with:
+You can clone the repository with
 
 .. code:: bash
+
+   git clone https://github.com/DarkMachines/pyBAMBI 
+
+Although if you wish to
+`contribute <https://github.com/DarkMachines/pyBAMBI/blob/master/.github/CONTRIBUTING.md>`__,
+you should fork the repository to your own account.
+
+You can run the tests with either of the commands:
+
+.. code:: bash
+
    python -m pytest tests
-
-or 
-
-.. code:: bash
    python setup.py test
+
 
 Key idea
 --------
