@@ -5,7 +5,7 @@ pyBAMBI
 :pyBAMBI: Resurrecting BAMBI for the pythonic deep learning era
 :Author: Dark Machines collaboration
 :Organiser: Will Handley
-:Version: 0.0.0
+:Version: 0.1.0
 :GitHub: https://github.com/DarkMachines/pyBAMBI
 :Documentation: https://pybambi.readthedocs.io/
 :Website: https://darkmachines.org
