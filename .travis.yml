@@ -7,7 +7,7 @@ python:
     - "3.6"
     #    - "3.5"
     #    - "3.4"
-    #    - "2.7"
+    - "2.7"
 
 env:
   - MPI=
@@ -17,15 +17,22 @@ matrix:
     include:
         - os: osx
           language: generic
-          env: MPI=
+          env: PYTHON=python2 MPI=
         - os: osx
           language: generic
-          env: MPI=1
+          env: PYTHON=python2 MPI=1
+        - os: osx
+          language: generic
+          env: PYTHON=python3 MPI=
+        - os: osx
+          language: generic
+          env: PYTHON=python3 MPI=1
+
 
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip install virtualenv ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then virtualenv venv -p python3; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then virtualenv venv -p $PYTHON; fi
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then source venv/bin/activate; fi
 
 install:
@@ -48,6 +55,7 @@ install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
       then 
           brew install gcc;
+          export LDFLAGS='-L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8 -lgfortran';
       else
           sudo apt-get install gfortran;
       fi;
