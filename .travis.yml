@@ -51,26 +51,12 @@ install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
       then 
           brew install gcc;
-          export ;
       else
           sudo apt-get install gfortran;
       fi;
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
-    - if [ "$MPI" ];
-      then
-          CC=mpicc CXX=mpicxx make MPI=1 pypolychord;
-          CC=mpicc CXX=mpicxx python setup.py install;
-      else
-          if [[ "$TRAVIS_OS_NAME" == "osx" ]];  
-          then
-              CC=gcc-8 CXX=g++-8 make MPI= pypolychord;
-              CC=gcc-8 CXX=g++-8 python setup.py install;
-          else
-              make MPI= pypolychord;
-              python setup.py install;
-          fi;
-      fi;
+    - make MPI=$MPI pypolychord
     - cd ..
 
     # MultiNest install
