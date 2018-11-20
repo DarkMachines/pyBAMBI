@@ -1,15 +1,15 @@
 # linux matrix
-language: python
-os: linux
-python:
-    - "3.6"
-    #    - "3.5"
-    #    - "3.4"
-    #- "2.7"
-env:
-  - MPI=
-    #  - MPI=1
-
+#language: python
+#os: linux
+#python:
+#    - "3.6"
+#    #    - "3.5"
+#    #    - "3.4"
+#    #- "2.7"
+#env:
+#  - MPI=
+#    #  - MPI=1
+#
 # OSX matrix
 matrix:
     include:
@@ -38,8 +38,7 @@ addons:
             - libopenmpi-dev
     homebrew:
         packages: 
-            - gcc
-            - glibc
+            - gcc@7
             - open-mpi
 
 # OSX setup
@@ -55,6 +54,7 @@ before_install:
 install:
     - mkdir external
     - cd external
+    - ls /usr/local/bin
 
     # PolyChord install
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
