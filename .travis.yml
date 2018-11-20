@@ -26,30 +26,32 @@ matrix:
           language: generic
           env: PYTHON_VERSION=python3 MPI=1
 
+addons:
+    apt:
+        packages:
+            - gfortran
+            - libblas3
+            - liblapack3
+            - openmpi-bin
+            - libopenmpi-dev
+    homebrew:
+        packages: 
+            - gcc
+            - open-mpi
+
 
 # OSX setup
 before_install:
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then brew update; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then pip install virtualenv ; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then virtualenv venv -p $PYTHON_VERSION; fi
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then source venv/bin/activate; fi
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
+      then 
+          pip install virtualenv;
+          virtualenv venv -p $PYTHON_VERSION;
+          source venv/bin/activate;
+      fi
 
 install:
     - mkdir external
     - cd external
-
-    # System installation requirements
-    - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
-      then brew install gcc;
-      else sudo apt-get install gfortran libblas3 liblapack3; 
-      fi
-    - if [ "$MPI" ]; then
-          if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
-          then brew install open-mpi;
-          else sudo apt-get install openmpi-bin libopenmpi-dev;
-          fi;
-          pip install mpi4py;
-      fi
 
     # PolyChord install
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
@@ -76,6 +78,7 @@ install:
     - cd ..
     - pip install -r requirements.txt
     - pip install pytest pytest-cov codecov
+    - if [ "$MPI" ]; then pip install mpi4py; fi
 
 script:
     - if [ "$MPI" ];
