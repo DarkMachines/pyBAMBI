@@ -1,14 +1,10 @@
 language: python
-
-os:
-    - linux
-
+os: linux
 python:
     - "3.6"
     #    - "3.5"
     #    - "3.4"
     - "2.7"
-
 env:
   - MPI=
   - MPI=1
@@ -55,19 +51,26 @@ install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
       then 
           brew install gcc;
-          export LDFLAGS='-L/usr/local/Cellar/gcc/8.2.0/lib/gcc/8 -lgfortran';
+          export ;
       else
           sudo apt-get install gfortran;
       fi;
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
-    - make MPI=$MPI pypolychord
     - if [ "$MPI" ];
       then
+          CC=mpicc CXX=mpicxx make MPI=1 pypolychord;
           CC=mpicc CXX=mpicxx python setup.py install;
       else
-          python setup.py install;
-      fi
+          if [[ "$TRAVIS_OS_NAME" == "osx" ]];  
+          then
+              CC=gcc-8 CXX=g++-8 make MPI= pypolychord;
+              CC=gcc-8 CXX=g++-8 python setup.py install;
+          else
+              make MPI= pypolychord;
+              python setup.py install;
+          fi;
+      fi;
     - cd ..
 
     # MultiNest install
