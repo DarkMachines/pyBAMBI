@@ -40,7 +40,7 @@ install:
 
     # System installation requirements
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
-      then brew install gcc lapack openblas;
+      then brew install gcc lapack openblas; brew link gcc;
       else sudo apt-get install gfortran libblas3 liblapack3; 
       fi
     - if [ "$MPI" ]; then
