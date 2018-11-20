@@ -5,10 +5,10 @@ python:
     - "3.6"
     #    - "3.5"
     #    - "3.4"
-    - "2.7"
+    #- "2.7"
 env:
   - MPI=
-  - MPI=1
+    #  - MPI=1
 
 # OSX matrix
 matrix:
@@ -26,6 +26,7 @@ matrix:
           language: generic
           env: PYTHON_VERSION=python3 MPI=1
 
+
 # System packages
 addons:
     apt:
@@ -41,7 +42,6 @@ addons:
             - glibc
             - open-mpi
 
-
 # OSX setup
 before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
@@ -51,6 +51,7 @@ before_install:
           source venv/bin/activate;
       fi
 
+# Installation procedure
 install:
     - mkdir external
     - cd external
@@ -82,11 +83,13 @@ install:
     - pip install pytest pytest-cov codecov
     - if [ "$MPI" ]; then pip install mpi4py; fi
 
+# Run tests
 script:
     - if [ "$MPI" ];
       then mpirun -np 2 python -m pytest tests;
       else python -m pytest tests --cov=pybambi;
       fi
 
+# Run coverage summary
 after_success:
     - codecov
