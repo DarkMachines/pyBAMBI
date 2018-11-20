@@ -57,6 +57,7 @@ install:
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
     - make MPI=$MPI pypolychord
+    - python setup.py install
     - cd ..
 
     # MultiNest install
