@@ -40,7 +40,9 @@ install:
 
     # System installation requirements
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; 
-      then brew install gcc lapack openblas; brew link gcc;
+      then 
+          brew install gcc;
+          find /usr/local/Cellar/gcc;
       else sudo apt-get install gfortran libblas3 liblapack3; 
       fi
     - if [ "$MPI" ]; then
@@ -50,6 +52,9 @@ install:
           fi;
           pip install mpi4py;
       fi
+    - /usr/bin/gcc --version
+    - /usr/bin/g++ --version
+    - gfortran --version; which gfortran
 
     # PolyChord install
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
