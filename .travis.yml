@@ -1,32 +1,77 @@
+# linux matrix
 language: python
-
-os:
-    - linux
-      # @TODO make it test on osx
-      #  - osx
-
+os: linux
 python:
-    - "2.7"
-    - "3.4"
-    - "3.5"
     - "3.6"
+    - "3.5"
+    - "3.4"
+    - "2.7"
+env:
+  - MPI=
+  - MPI=1
 
+# OSX matrix
+matrix:
+    include:
+        - os: osx
+          osx_image: xcode10.1
+          language: generic
+          env: PYTHON_VERSION=python2 MPI=
+        - os: osx
+          osx_image: xcode10.1
+          language: generic
+          env: PYTHON_VERSION=python3 MPI=
+
+
+# System packages
+addons:
+    apt:
+        packages:
+            - gfortran
+            - libblas3
+            - liblapack3
+            - openmpi-bin
+            - libopenmpi-dev
+    homebrew:
+        packages: 
+            - gcc
+            - python2
+            - python3
+
+# OSX setup
+before_install:
+    - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
+      then 
+          brew link gcc;
+          pip install virtualenv;
+          virtualenv venv -p $PYTHON_VERSION;
+          source venv/bin/activate;
+      fi
+
+# Installation procedure
 install:
     - mkdir external
     - cd external
+    - ls /usr/local/bin
 
     # PolyChord install
-    - sudo apt-get install gfortran 
+    - pip install numpy
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
-    - make MPI=
-    - python setup.py install
+    - make MPI=$MPI pypolychord
+    - if [ "$MPI" ]; then 
+          CC=mpicc CXX=mpicxx python setup.py install;
+      elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+          CC=gcc-8 CXX=g++-8 python setup.py install;
+      else 
+          python setup.py install;
+      fi
     - cd ..
-    - python -c 'import pypolychord'
 
     # MultiNest install
-    - sudo apt-get install gfortran libblas3 liblapack3
-    - git clone https://github.com/JohannesBuchner/MultiNest MultiNest
+    - git clone https://github.com/williamjameshandley/MultiNest MultiNest_repo
+    - cp -r MultiNest_repo/MultiNest_v3.11_CMake/multinest MultiNest
+    - mkdir -p MultiNest/build
     - cd MultiNest/build
     - cmake ..
     - make
@@ -38,15 +83,20 @@ install:
     - cd PyMultiNest
     - python setup.py install
     - cd ..
-    - python -c 'import pymultinest'
 
     # requirements install
     - cd ..
     - pip install -r requirements.txt
     - pip install pytest pytest-cov codecov
+    - if [ "$MPI" ]; then pip install mpi4py; fi
 
+# Run tests
 script:
-    - python -m pytest tests --cov=pybambi
+    - if [ "$MPI" ];
+      then mpirun -np 2 python -m pytest tests;
+      else python -m pytest tests --cov=pybambi;
+      fi
 
+# Run coverage summary
 after_success:
     - codecov

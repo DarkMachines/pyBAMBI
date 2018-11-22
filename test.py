@@ -1,6 +1,7 @@
 from pybambi import run_pyBAMBI
 
 from numpy import pi, log, sqrt
+from mpi4py import MPI
 
 nDims = 3
 
@@ -18,4 +19,4 @@ def prior(cube):
 
 
 run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='multinest', nlive=500)
-run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='polychord', nlive=500)
+#run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='polychord', nlive=500)

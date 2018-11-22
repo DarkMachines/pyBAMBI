@@ -48,6 +48,11 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     import pypolychord
     from pypolychord.settings import PolyChordSettings
 
+    basedir = os.path.dirname(root)
+    cluster_dir = os.path.join(basedir,'clusters')
+    try: os.makedirs(cluster_dir)
+    except: pass
+
     nDerived = 0
     settings = PolyChordSettings(nDims, nDerived)
     settings.base_dir = os.path.dirname(root)

@@ -49,8 +49,8 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
     import pymultinest
 
     basedir = os.path.dirname(root)
-    if not os.path.exists(basedir):
-        os.makedirs(basedir)
+    try: os.makedirs(basedir)
+    except: pass
 
     def multinest_prior(cube, ndim, nparams):
         return prior(as_array(cube, shape=(nparams,)))
