@@ -40,9 +40,13 @@ nDims = 3
 def test_run_pyBAMBI_multinest():
     loglikelihood.called = False
     prior.called = False
+    try: 
+        os.makedirs('./chains')
+    except: 
+        pass
     pybambi.run_pyBAMBI(loglikelihood, prior, nDims,
                         nested_sampler='multinest',
-                        root='.chains/polychord', nlive=50)
+                        root='.chains/multinest', nlive=50)
     assert(loglikelihood.called==True)
     assert(prior.called==True)
     try:
@@ -53,9 +57,13 @@ def test_run_pyBAMBI_multinest():
 def test_run_pyBAMBI_polychord():
     loglikelihood.called = False
     prior.called = False
+    try: 
+        os.makedirs('./chains/clusters/')
+    except: 
+        pass
     pybambi.run_pyBAMBI(loglikelihood, prior, nDims,
                         nested_sampler='polychord',
-                        root='.chains/multinest', nlive=50)
+                        root='.chains/polychord', nlive=50)
     assert(loglikelihood.called==True)
     assert(prior.called==True)
     try:
