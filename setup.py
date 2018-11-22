@@ -27,7 +27,7 @@ setup(name='pyBAMBI',
       author_email='wh260@cam.ac.uk',
       url='https://github.com/DarkMachines/pyBAMBI',
       packages=find_packages(),
-      install_requires=['numpy'],
+      install_requires=['numpy', 'contextlib2'],
       setup_requires=['pytest-runner'],
       extras_require={
           'docs': ['sphinx', 'sphinx_rtd_theme', 'numpydoc'],
