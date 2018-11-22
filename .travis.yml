@@ -14,17 +14,13 @@
 matrix:
     include:
         - os: osx
+          osx_image: xcode10.1
           language: generic
           env: PYTHON_VERSION=python2 MPI=
         - os: osx
-          language: generic
-          env: PYTHON_VERSION=python2 MPI=1
-        - os: osx
+          osx_image: xcode10.1
           language: generic
           env: PYTHON_VERSION=python3 MPI=
-        - os: osx
-          language: generic
-          env: PYTHON_VERSION=python3 MPI=1
 
 
 # System packages
@@ -38,8 +34,9 @@ addons:
             - libopenmpi-dev
     homebrew:
         packages: 
-            - gcc@7
-            - open-mpi
+            - gcc --force
+            - python2
+            - python3
 
 # OSX setup
 before_install:
@@ -57,10 +54,17 @@ install:
     - ls /usr/local/bin
 
     # PolyChord install
+    - pip install numpy
     - git clone https://github.com/PolyChord/PolyChordLite PolyChord
     - cd PolyChord
     - make MPI=$MPI pypolychord
-    - python setup.py install
+    - if [ "$MPI" ]; then 
+          CC=mpicc CXX=mpicxx python setup.py install;
+      elif [[ "$TRAVIS_OS_NAME" == "osx" ]]; then 
+          CC=gcc-8 CXX=g++-8 python setup.py install;
+      else 
+          python setup.py install;
+      fi
     - cd ..
 
     # MultiNest install
