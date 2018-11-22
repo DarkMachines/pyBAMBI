@@ -69,9 +69,10 @@ install:
     - cd ..
 
     # MultiNest install
-    - git clone https://github.com/farhanferoz/MultiNest MultiNest
+    - git clone https://github.com/williamjameshandley/MultiNest MultiNest
+    - mkdir -p MultiNest/build
     - cd MultiNest/build
-    - cmake ..
+    - cmake ../MultiNest_v3.11_CMake/multinest
     - make
     - cd ../../
     - export LD_LIBRARY_PATH=$PWD/MultiNest/lib/:${LD_LIBRARY_PATH} 
