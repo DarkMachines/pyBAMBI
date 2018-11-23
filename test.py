@@ -18,5 +18,5 @@ def prior(cube):
     return -1 + 2 * cube
 
 
-run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='multinest', nlive=500)
-#run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='polychord', nlive=500)
+#run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='multinest', nlive=500)
+run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='polychord', nlive=500)
