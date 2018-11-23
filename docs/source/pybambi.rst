@@ -1,6 +1,13 @@
 pybambi package
 ===============
 
+Subpackages
+-----------
+
+.. toctree::
+
+    pybambi.neuralnetworks
+
 Submodules
 ----------
 
