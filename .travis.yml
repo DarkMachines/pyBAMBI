@@ -69,7 +69,7 @@ install:
     - cd ..
 
     # MultiNest install
-    - git clone https://github.com/williamjameshandley/MultiNest MultiNest_repo
+    - git clone https://github.com/farhanferoz/MultiNest MultiNest_repo
     - cp -r MultiNest_repo/MultiNest_v3.11_CMake/multinest MultiNest
     - mkdir -p MultiNest/build
     - cd MultiNest/build
