@@ -9,14 +9,14 @@ def test_NearestNeighborInterpolation():
     for t, l in zip(params, logL):
         assert p(t)==l
 
-    assert p([-0.1,-0.1]==1)
-    assert p([0.1,-0.1]==1)
-    assert p([0.1,0.1]==1)
-    assert p([0.1,-0.1]==1)
+    assert p([-0.1,-0.1])==1
+    assert p([0.1,-0.1])==1
+    assert p([0.1,0.1])==1
+    assert p([0.1,-0.1])==1
 
-    assert p([1.1,1.1]==3)
-    assert p([0.1,1.1]==2)
-    assert p([1.1,0.1]==4)
+    assert p([1.1,1.1])==3
+    assert p([0.1,1.1])==2
+    assert p([1.1,0.1])==4
 
     
 
