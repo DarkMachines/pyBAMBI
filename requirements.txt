@@ -1,4 +1,3 @@
 tensorflow
 keras
-contextlib2
 numpy

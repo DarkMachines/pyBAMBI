@@ -37,11 +37,9 @@ addons:
             - gcc
             - python2
             - python3
+            - imagemagick
 
 before_install:
-    - pip install flake8
-    - flake8 .
-
     # OSX setup
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
@@ -96,8 +94,18 @@ before_install:
 install:
     - pip install -r requirements.txt
     - pip install pytest pytest-cov codecov
+    - pip install flake8 pydocstyle sphinx sphinx_rtd_theme
     - if [ "$MPI" ]; then pip install mpi4py; fi
 
+before_script:
+    # Test for pep-compliance
+    - flake8 pybambi tests
+
+    # Test for documentation referencing
+    - sphinx-build docs/source docs/build -nW
+
+    # Test for documentation style
+    - pydocstyle pybambi
 
 # Run tests
 script:

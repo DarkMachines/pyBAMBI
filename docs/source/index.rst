@@ -6,6 +6,7 @@
 
    Introduction <intro>
    API <pybambi>
+   modules <modules>
 
 .. include:: ../../README.rst
 

@@ -1,4 +1,8 @@
-""" pyBAMBI
+"""Main pyBAMBI module.
+
+Author: Will Handley (wh260@cam.ac.uk)
+Date: November 2018
+
 
 Functions
 ---------
@@ -6,7 +10,6 @@ Functions
 * run_pyBAMBI
 
 """
-
 import pybambi.bambi
 
 

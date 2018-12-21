@@ -1,11 +1,14 @@
-""" Driving routine for pyBAMBI"""
+"""Driving routine for pyBAMBI.
 
+Author: Will Handley (wh260@cam.ac.uk)
+Date: November 2018
+"""
 import os
 from pybambi.dumper import dumper
 
 
 def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
-    """ run pyBAMBI
+    """Run pyBAMBI.
 
     Parameters
     ----------
@@ -28,8 +31,8 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     eff: float
         efficiency for multinest.
         Default `0.5**nDims`
-    """
 
+    """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
     nlive = kwargs.pop('nlive', nDims*25)

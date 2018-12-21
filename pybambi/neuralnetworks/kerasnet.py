@@ -13,13 +13,26 @@ from keras.layers import Dense
 
 
 class KerasNetInterpolation(Predictor):
-    """ Keras neural net interpolation
+    """Keras neural net interpolation.
 
     Returns the loglikelihood from a Keras neural net-based interpolator
+
+    Trains a basic 3-layer neural network with 200 neurons per layer.
+
+    Parameters
+    ----------
+    params:
+        `numpy.array of` physical parameters to train on
+        shape (ntrain, ndims)
+
+    logL:
+        `numpy.array` of loglikelihoods to learn
+        shape (ntrain,)
 
     """
 
     def __init__(self, params, logL, split=0.8):
+        """Construct predictor from training data."""
         super(KerasNetInterpolation, self).__init__(params, logL)
         self._params = params[:]
         self._logL = logL[:]
@@ -71,6 +84,18 @@ class KerasNetInterpolation(Predictor):
         self._model = model
 
     def __call__(self, x):
+        """Calculate proxy loglikelihood.
+
+        Parameters
+        ----------
+        x:
+            `numpy.array` of physical parameters to predict
+
+        Returns
+        -------
+        proxy loglikelihood value(s)
+
+        """
         x_ = numpy.atleast_2d(x)
         y = self._model.predict(x_)
         return numpy.squeeze(y)
