@@ -1,12 +1,13 @@
 """ Function giving access to live points """
 
+
 def dumper(live):
     """ Dumper function giving access to the live points
-    
+
     Parameters
     ----------
     live: numpy.array
-          live parameters and loglikelihoods, `shape=(nlive,nDims+1)` 
+          live parameters and loglikelihoods, `shape=(nlive,nDims+1)`
     """
 
     params = live[:, :-1]
@@ -14,5 +15,6 @@ def dumper(live):
 
     print("-----------------------------")
     print("Call neural network code here")
+    print(params.shape)
     print(loglikes)
     print("-----------------------------")

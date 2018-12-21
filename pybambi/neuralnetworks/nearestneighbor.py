@@ -9,7 +9,7 @@ from pybambi.neuralnetworks.base import Predictor
 
 class NearestNeighborInterpolation(Predictor):
     """ Nearest Neighbor interpolation
-    
+
     Returns the loglikelihood of the training point closest in parameter space
     """
 

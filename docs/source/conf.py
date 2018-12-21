@@ -12,6 +12,7 @@ import sys
 import os
 sys.path.append(os.path.abspath('../../'))
 
+
 def get_version(short=False):
     with open('../../README.rst') as f:
         for line in f:
@@ -24,6 +25,7 @@ def get_version(short=False):
                     return ver
 
 # -- Project information -----------------------------------------------------
+
 
 project = 'pyBAMBI'
 copyright = '2018, Dark Machines'

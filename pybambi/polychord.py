@@ -1,9 +1,5 @@
 """ Wrapper for PyPolyChord """
 import os
-try:
-    from contextlib import suppress
-except:
-    from contextlib2 import suppress
 
 
 def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
@@ -51,10 +47,6 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     """
     import pypolychord
     from pypolychord.settings import PolyChordSettings
-
-    basedir = os.path.dirname(root)
-    cluster_dir = os.path.join(basedir,'clusters')
-    with suppress(Exception): os.makedirs(cluster_dir)
 
     nDerived = 0
     settings = PolyChordSettings(nDims, nDerived)

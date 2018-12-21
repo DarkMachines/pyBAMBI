@@ -1,10 +1,5 @@
 """ Wrapper for PyMultiNest """
-import os
 from numpy.ctypeslib import as_array
-try:
-    from contextlib import suppress
-except:
-    from contextlib2 import suppress
 
 
 def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
@@ -50,9 +45,6 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
         Efficiency of MultiNest
     """
     import pymultinest
-
-    basedir = os.path.dirname(root)
-    with suppress(Exception): os.makedirs(basedir)
 
     def multinest_prior(cube, ndim, nparams):
         return prior(as_array(cube, shape=(nparams,)))

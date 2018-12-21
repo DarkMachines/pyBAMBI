@@ -38,8 +38,11 @@ addons:
             - python2
             - python3
 
-# OSX setup
 before_install:
+    - pip install flake8
+    - flake8 .
+
+    # OSX setup
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew link gcc;
@@ -53,13 +56,6 @@ before_install:
                pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py2-none-any.whl";
           fi;
       fi
-
-# Installation procedure
-install:
-    - pip install --upgrade pip
-    - mkdir external
-    - cd external
-    - ls /usr/local/bin
 
     # PolyChord install
     - pip install numpy
@@ -81,7 +77,11 @@ install:
     - mkdir -p MultiNest/build
     - cd MultiNest/build
     - cmake ..
-    - make
+    - if [ "$MPI" ]; then 
+          make multinest_mpi_shared;
+      else
+          make multinest_shared;
+      fi;
     - cd ../../
     - export LD_LIBRARY_PATH=$PWD/MultiNest/lib/:${LD_LIBRARY_PATH} 
 
@@ -90,12 +90,14 @@ install:
     - cd PyMultiNest
     - python setup.py install
     - cd ..
+    - mkdir chains
 
-    # requirements install
-    - cd ..
+
+install:
     - pip install -r requirements.txt
     - pip install pytest pytest-cov codecov
     - if [ "$MPI" ]; then pip install mpi4py; fi
+
 
 # Run tests
 script:

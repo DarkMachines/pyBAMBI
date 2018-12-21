@@ -1,9 +1,6 @@
 import pytest
 import pybambi
 import numpy
-import shutil
-import os
-if os.environ["MPI"]: from mpi4py import MPI
 
 
 def test_run_pyBAMBI_inputs():
@@ -40,32 +37,18 @@ nDims = 3
 def test_run_pyBAMBI_multinest():
     loglikelihood.called = False
     prior.called = False
-    try: 
-        os.makedirs('./chains')
-    except: 
-        pass
     pybambi.run_pyBAMBI(loglikelihood, prior, nDims,
                         nested_sampler='multinest',
-                        root='.chains/multinest', nlive=50)
-    assert(loglikelihood.called==True)
-    assert(prior.called==True)
-    try:
-        shutil.rmtree('.chains')
-    except: pass
+                        root='chains/multinest', nlive=50)
+    assert(loglikelihood.called is True)
+    assert(prior.called is True)
 
 
 def test_run_pyBAMBI_polychord():
     loglikelihood.called = False
     prior.called = False
-    try: 
-        os.makedirs('./chains/clusters/')
-    except: 
-        pass
     pybambi.run_pyBAMBI(loglikelihood, prior, nDims,
                         nested_sampler='polychord',
-                        root='.chains/polychord', nlive=50)
-    assert(loglikelihood.called==True)
-    assert(prior.called==True)
-    try:
-        shutil.rmtree('.chains')
-    except: pass
+                        root='chains/polychord', nlive=50)
+    assert(loglikelihood.called is True)
+    assert(prior.called is True)

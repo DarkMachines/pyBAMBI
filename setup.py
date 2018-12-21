@@ -21,7 +21,8 @@ def get_version(short=False):
 
 setup(name='pyBAMBI',
       version=get_version(),
-      description='pyBAMBI: Resurrecting BAMBI for the pythonic deep learning era ',
+      description='pyBAMBI:'
+                  'Resurrecting BAMBI for the pythonic deep learning era ',
       long_description=readme(),
       author='Dark Machines collaboration',
       author_email='wh260@cam.ac.uk',
