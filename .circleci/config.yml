@@ -1,0 +1,93 @@
+version: 2
+jobs:
+  run_tests:
+    docker:
+      - image: circleci/python:3.6.4
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: install Debian dependencies
+          command: |
+            sudo apt-get update
+            sudo apt-get install gfortran libblas3 liblapack3 cmake
+
+      - run:
+          name: setup Python venv
+          command: |
+            python3 -m venv venv
+
+      - run:
+          name: PolyChord install
+          command: |
+            . venv/bin/activate
+            git clone https://github.com/PolyChord/PolyChordLite PolyChord
+            cd PolyChord
+            make MPI= pypolychord
+            pip install numpy
+            python setup.py install
+            cd ..
+
+      - run:
+          name: MultiNest install
+          command: |
+            git clone https://github.com/farhanferoz/MultiNest MultiNest_repo
+            cp -r MultiNest_repo/MultiNest_v3.11_CMake/multinest MultiNest
+            mkdir -p MultiNest/build 
+            cd MultiNest/build       
+            cmake ..                 
+            make multinest_shared
+            cd ../../
+            mkdir chains
+
+      - run:
+          name: PyMultiNest install
+          command: |
+            . venv/bin/activate
+            git clone https://github.com/JohannesBuchner/PyMultiNest PyMultiNest
+            cd PyMultiNest
+            python setup.py install
+            cd ..
+
+      - run: 
+          name: install
+          command: |
+            . venv/bin/activate
+            pip install -r requirements.txt
+            pip install pytest pytest-cov codecov
+            pip install flake8 pydocstyle sphinx sphinx_rtd_theme
+
+      - run: 
+          name: flake8
+          command: |
+            . venv/bin/activate
+            flake8 pybambi tests 
+
+      - run: 
+          name: sphinx-build
+          command: |
+            . venv/bin/activate
+            sphinx-build docs/source docs/build -nW
+
+      - run: 
+          name: pydocstyle
+          command: |
+            . venv/bin/activate
+            pydocstyle pybambi 
+
+      - run: 
+          name: tests
+          command: |
+            . venv/bin/activate
+            export LD_LIBRARY_PATH=$PWD/MultiNest/lib/:${LD_LIBRARY_PATH}    
+            python -m pytest tests
+
+
+workflows:
+  version: 2
+  circle-ci:
+    jobs:
+      - run_tests
