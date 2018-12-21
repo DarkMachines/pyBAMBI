@@ -12,6 +12,14 @@ pybambi.neuralnetworks.base module
     :undoc-members:
     :show-inheritance:
 
+pybambi.neuralnetworks.kerasnet module
+--------------------------------------
+
+.. automodule:: pybambi.neuralnetworks.kerasnet
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 pybambi.neuralnetworks.nearestneighbor module
 ---------------------------------------------
 
