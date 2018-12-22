@@ -22,6 +22,9 @@ pyBAMBI
 .. image:: https://readthedocs.org/projects/pybambi/badge/?version=latest
    :target: https://pybambi.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
+.. image:: https://zenodo.org/badge/157531981.svg
+   :target: https://zenodo.org/badge/latestdoi/157531981
+
 
 Quick links
 -----------
