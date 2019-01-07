@@ -93,7 +93,7 @@ before_install:
 
 install:
     - pip install -r requirements.txt
-    - pip install pytest pytest-cov codecov
+    - pip install pytest-cov codecov
     - pip install flake8 pydocstyle sphinx sphinx_rtd_theme
     - if [ "$MPI" ]; then pip install mpi4py; fi
 
