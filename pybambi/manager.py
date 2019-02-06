@@ -23,15 +23,15 @@ class BambiManager(object):
 
     def __init__(self, loglikelihood, learner):
         self._loglikelihood = loglikelihood
-        if (learner == 'keras')
-            def self.make_learner():
-                return KerasNetInterpolation()
-        elif (learner == 'nearestneighbor')
-            def self.make_learner():
-                return NearestNeighborInterpolation()
-        else:
-            raise NotImplementedError('Specified learner is not implemented.')
+        self.learner = learner
 
+    def make_learner(self):
+        if self.learner == 'keras':
+            return KerasNetInterpolation()
+        elif self.learner == 'nearestneighbor':
+            return NearestNeighborInterpolation()
+        else:
+            raise NotImplementedError('learner %s is not implemented.' % learner)
 
     def dumper(self, live_params, live_loglikes, dead_params, dead_loglikes):
         print("-----------------------------")
