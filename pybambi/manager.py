@@ -16,10 +16,10 @@ class BambiManager(object):
 
     """
 
-    def __init__(self, learner):
-       self.learner = learner()
+    def __init__(self, loglikelihood, learner):
+       self.learner = learner
+       self._loglikelihood = loglikelihood
 
-    
     def dumper(self, live_params, live_loglikes, dead_params, dead_loglikes):
         print("-----------------------------")
         print("Use thumper to do stuff here")
@@ -27,6 +27,11 @@ class BambiManager(object):
         print("dead_params is an array of shape ", dead_params.shape)
         print("-----------------------------")
 
-
-    def get_loglikelihood(loglikelihood, theta):
-    # needs to test if prediction is good enough, then call self.learner(theta), otherwise call likelihood(theta)
+    def loglikelihood(self, theta):
+        # Do some kind of logic to determine if proxy is good enough
+        good_enough = False
+        if good_enough:
+            # Use proxy
+            pass
+        else:
+            return self._loglikelihood(theta)

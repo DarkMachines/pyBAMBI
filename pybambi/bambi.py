@@ -7,7 +7,7 @@ import os
 from pybambi.manager import BambiManager
 
 
-def run_pyBAMBI(input_loglikelihood, prior, nDims, **kwargs):
+def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     """Run pyBAMBI.
 
     Parameters
@@ -51,22 +51,17 @@ def run_pyBAMBI(input_loglikelihood, prior, nDims, **kwargs):
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
 
     # Set up the global manager of the BAMBI session.
-    thumper = BambiManager(learner)
+    thumper = BambiManager(loglikelihood, learner)
 
-    def loglikelihood(theta):
-        logL = thumper.get_loglikelihood(input_loglikelihood,theta)
-        loglikelihood.called = True
-        return logL
-    
     # Choose and run sampler
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
-        run_polychord(loglikelihood, prior, thumper.dumper, nDims,
+        run_polychord(thumper.loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, num_repeats)
 
     elif nested_sampler == 'multinest':
         from pybambi.multinest import run_multinest
-        run_multinest(loglikelihood, prior, thumper.dumper, nDims,
+        run_multinest(thumper.loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, eff)
 
     else:
