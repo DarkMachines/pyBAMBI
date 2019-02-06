@@ -67,7 +67,7 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
         return loglikelihood(theta), []
 
     def polychord_dumper(live, dead, logweights, logZ, logZerr):
-        dumper(live[:, :-1])
+        dumper(live[:, :-2], live[:, -1], dead[:, :-2], dead[:, :-1])
 
     pypolychord.run_polychord(polychord_loglikelihood, nDims, nDerived,
                               settings, prior, polychord_dumper)

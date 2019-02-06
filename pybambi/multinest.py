@@ -61,7 +61,7 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
     def multinest_dumper(nSamples, nlive, nPar,
                          physLive, posterior, paramConstr,
                          maxLogLike, logZ, logZerr, nullcontext):
-        dumper(physLive)
+        dumper(physLive[:,:-1], physLive[:,-1], posterior[:,:-2],posterior[:,:-1])
 
     pymultinest.run(multinest_loglikelihood, multinest_prior, nDims,
                     resume=False, verbose=True, dump_callback=multinest_dumper,

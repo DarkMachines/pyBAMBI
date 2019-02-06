@@ -5,21 +5,32 @@ Date: November 2018
 """
 
 
-def dumper(live):
-    """Dumper function giving access to the live points.
+def dumper(live_params, live_loglikes, dead_params, dead_loglikes):
+    """Dumper function giving access to the live and dead points.
 
     Parameters
     ----------
-    live:
-        `numpy.array` of live parameters and loglikelihoods,
-        `shape=(nlive,nDims+1)`
+    live_params:
+        `numpy.array` of live parameters,
+        `shape=(nlive,nDims)`
+
+    live_loglikes:
+        `numpy.array` of live loglikelihoods,
+        `shape=(nlive)`
+
+    dead_params:
+        `numpy.array` of dead parameters,
+        `shape=(ndead,nDims)`
+
+    dead_loglikes:
+        `numpy.array` of dead loglikelihoods,
+        `shape=(nlive)`
+
 
     """
-    params = live[:, :-1]
-    loglikes = live[:, -1]
 
     print("-----------------------------")
     print("Call neural network code here")
-    print(params.shape)
-    print(loglikes)
+    print("live_params is an array of shape ", live_params.shape)
+    print("dead_params is an array of shape ", dead_params.shape)
     print("-----------------------------")
