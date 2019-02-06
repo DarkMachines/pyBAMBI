@@ -10,7 +10,7 @@ def loglikelihood(theta):
     sigma = 0.1
     nDims = len(theta)
     logL = -log(2*pi*sigma*sigma)*nDims/2.0
-    logL -= - sum((theta/sigma)**2) / 2 + log(2) * nDims
+    logL -= sum((theta/sigma)**2) / 2 + log(2) * nDims
     return logL
 
 
