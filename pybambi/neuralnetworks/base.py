@@ -28,6 +28,10 @@ class Predictor(object):
         """Construct predictor from training data."""
         params = numpy.array(params)
         logL = numpy.array(logL)
+
+        self._maxLogL = numpy.max(logL)
+        self._minLogL = numpy.min(logL)
+        
         if len(params) != len(logL):
             raise ValueError("input and target must be the same length")
         elif params.ndim != 2:
@@ -61,3 +65,18 @@ class Predictor(object):
         """
         err = "Predictor: You need to implement an uncertainty function"
         raise NotImplementedError(err)
+
+    def logLInRangeOfTrainingData(self,loglikelihood):
+        """Checks to see if the supplied log likelihood value is within the 
+           current range of likelihoods, including the uncertainty
+        
+        Parameters
+        ----------
+        loglikelihood:
+        Value of the log likelihood that needs checking
+        """
+
+        inRange = true
+        if loglikelihood > (self._maxLogL + uncertainty()) or loglikelihood < (self._minLogL - uncertainty())inRange = false
+        return inRange
+        
