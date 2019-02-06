@@ -4,8 +4,7 @@ Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 """
 import os
-import thumper
-from pybambi.dumper import dumper
+from pybambi.manager import BambiManager
 
 
 def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
@@ -52,7 +51,14 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
 
     # Set up the global manager of the BAMBI session.
-    Thumper = BambiManager(learner)
+    thumper = BambiManager(learner)
+
+    def dumper(live_params, live_loglikes, dead_params, dead_loglikes):
+        print("-----------------------------")
+        print("Use thumper to do stuff here")
+        print("live_params is an array of shape ", live_params.shape)
+        print("dead_params is an array of shape ", dead_params.shape)
+        print("-----------------------------")
 
     # Choose and run sampler
     if nested_sampler == 'polychord':
