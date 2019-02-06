@@ -53,27 +53,20 @@ def run_pyBAMBI(input_loglikelihood, prior, nDims, **kwargs):
     # Set up the global manager of the BAMBI session.
     thumper = BambiManager(learner)
 
-    def dumper(live_params, live_loglikes, dead_params, dead_loglikes):
-        print("-----------------------------")
-        print("Use thumper to do stuff here")
-        print("live_params is an array of shape ", live_params.shape)
-        print("dead_params is an array of shape ", dead_params.shape)
-        print("-----------------------------")
-
     def loglikelihood(theta):
-        logL = Thumper.get_loglikelihood(input_loglikelihood,theta)
+        logL = thumper.get_loglikelihood(input_loglikelihood,theta)
         loglikelihood.called = True
         return logL
     
     # Choose and run sampler
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
-        run_polychord(loglikelihood, prior, dumper, nDims,
+        run_polychord(loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, num_repeats)
 
     elif nested_sampler == 'multinest':
         from pybambi.multinest import run_multinest
-        run_multinest(loglikelihood, prior, dumper, nDims,
+        run_multinest(loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, eff)
 
     else:

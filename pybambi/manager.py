@@ -19,6 +19,13 @@ class BambiManager(object):
     def __init__(self, learner):
        self.learner = learner()
 
+    
+    def dumper(self, live_params, live_loglikes, dead_params, dead_loglikes):
+        print("-----------------------------")
+        print("Use thumper to do stuff here")
+        print("live_params is an array of shape ", live_params.shape)
+        print("dead_params is an array of shape ", dead_params.shape)
+        print("-----------------------------")
 
 
     def get_loglikelihood(loglikelihood, theta):
