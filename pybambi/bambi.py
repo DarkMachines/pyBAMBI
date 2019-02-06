@@ -42,6 +42,9 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         How many iterations between training
         Default `nlive/2`
 
+    proxy_tolerance: float
+        Required accuracy of proxy.
+        Default `0.01`
     """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
@@ -51,12 +54,13 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     eff = kwargs.pop('eff', 0.5**nDims)
     learner = kwargs.pop('learner', 'keras')
     ntrain = kwargs.pop('ntrain', nlive//2)
+    proxy_tolerance = kwargs.pop('proxy_tolerance', 0.01)
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
 
     # Set up the global manager of the BAMBI session.
-    thumper = BambiManager(loglikelihood, learner)
+    thumper = BambiManager(loglikelihood, learner, proxy_tolerance)
 
     # Choose and run sampler
     if nested_sampler == 'polychord':

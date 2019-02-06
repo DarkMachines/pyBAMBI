@@ -23,7 +23,8 @@ class BambiManager(object):
 
     old_learners = []
 
-    def __init__(self, loglikelihood, learner):
+    def __init__(self, loglikelihood, learner, proxy_tolerance):
+        self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
         self._proxy_trained = False
