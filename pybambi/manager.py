@@ -4,6 +4,8 @@ Author: Pat Scott (p.scott@imperial.ac.uk)
 Date: Feb 2019
 """
 
+import numpy as np
+
 from pybambi.neuralnetworks.kerasnet import KerasNetInterpolation
 from pybambi.neuralnetworks.nearestneighbour import NearestNeighborInterpolation
 
@@ -23,13 +25,14 @@ class BambiManager(object):
 
     def __init__(self, loglikelihood, learner):
         self._loglikelihood = loglikelihood
-        self.learner = learner
+        self._learner = learner
+        self._proxy_trained = False
 
-    def make_learner(self):
-        if self.learner == 'keras':
-            return KerasNetInterpolation()
-        elif self.learner == 'nearestneighbor':
-            return NearestNeighborInterpolation()
+    def make_learner(self, params, loglikes):
+        if self._learner == 'keras':
+            return KerasNetInterpolation(params, loglikes)
+        elif self._learner == 'nearestneighbor':
+            return NearestNeighborInterpolation(params, loglikes)
         else:
             raise NotImplementedError('learner %s is not implemented.' % learner)
 
@@ -39,21 +42,23 @@ class BambiManager(object):
         print("live_params is an array of shape ", live_params.shape)
         print("dead_params is an array of shape ", dead_params.shape)
         print("-----------------------------")
+        if not self._proxy_trained and #hit updint/2:
+            train_new_learner(np.concatenate(live_params, dead_params), np.concatenate(live_loglikes, dead_loglikes))
 
 
     def get_loglikelihood(self, theta):
         # Do some kind of logic to determine if proxy is good enough
         good_enough = False
-        if good_enough:
+        if self._proxy_trained and good_enough:
             # Use proxy
             pass
         else:
             return self._loglikelihood(theta)
 
-
-    def train_new_learner(self):
+    def train_new_learner(self, params, loglikes):
         self.old_learners.append(self.current_learner)
-        self.current_learner = make_learner()
+        self.current_learner = make_learner(params, loglikes)
+        if self.current_learner.uncertainty() < self._proxy_tolerance: _proxy_trained = True
 
 
     def retrain_old_learner(self, learner):
