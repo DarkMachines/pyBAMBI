@@ -31,38 +31,43 @@ class KerasNetInterpolation(Predictor):
 
     """
 
-    def __init__(self, params, logL, split=0.8):
+    def __init__(self, params, logL, split=0.8, model=None):
         """Construct predictor from training data."""
         super(KerasNetInterpolation, self).__init__(params, logL)
-        self._params = params[:]
-        self._logL = logL[:]
 
-        # This function takes a parameter set, trains a neural net and returns
-        # the interpolated likelihood
-        # It is intended to be cannibalised for later pyBAMBI functionality
+        # Shuffle the params and logL in unison
+        # (important for splitting data into training and test sets)
+        nparams = len(params)
+        randomize = numpy.random.permutation(nparams)
+        self.params = params[randomize]
+        self.logL = logL[randomize]
+
+        # Now split into training and test sets
+        ntrain = int(split*nparams)
+        params_training, params_test = numpy.split(self.params, [ntrain])
+        logL_training, logL_test = numpy.split(self.logL, [ntrain])
+
+        if model is None:
+            model = self._default_architecture()
+
+        self.model = model
+
+        self.history = self.model.fit(params_training, logL_training,
+                                       validation_data=(params_test, logL_test),
+                                       epochs=100)
+
+
+    def _default_architecture(self):
+        # Create model
+        model = Sequential()
 
         # Number of neurons in each hidden layer, could make this configurable?
         numNeurons = 200
 
-        # Shuffle the params and logL in unison
-        # (important for splitting data into training and test sets)
-        ntot = len(self._params)
-        randomize = numpy.random.permutation(ntot)
-        params = self._params[randomize]
-        logL = self._logL[randomize]
-
-        # Now split into training and test sets
-        ntrain = int(split*ntot)
-        params_training, params_test = numpy.split(params, [ntrain])
-        logL_training, logL_test = numpy.split(logL, [ntrain])
-
-        # Create model
-        model = Sequential()
-
         # Get number of input parameters
         # Note: if params contains extra quantities (ndim+others),
         # we need to change this
-        n_cols = params.shape[1]
+        n_cols = self.params.shape[1]
 
         # Add model layers, note choice of activation function (relu)
         # We will use 3 hidden layers and an output layer
@@ -79,10 +84,7 @@ class KerasNetInterpolation(Predictor):
         model.compile(optimizer='adam', loss='mean_squared_error',
                       metrics='mean_squared_error')
 
-        self._history = model.fit(params_training, logL_training,
-                                  validation_data=(params_test, logL_test),
-                                  epochs=100)
-        self._model = model
+        return model
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.
@@ -98,7 +100,7 @@ class KerasNetInterpolation(Predictor):
 
         """
         x_ = numpy.atleast_2d(x)
-        y = self._model.predict(x_)
+        y = self.model.predict(x_)
         return numpy.squeeze(y)
 
     def uncertainty(self):
@@ -109,6 +111,6 @@ class KerasNetInterpolation(Predictor):
         uncertainty value
 
         """
-        test_loss = numpy.sqrt(self._history.history['val_loss'])
+        test_loss = numpy.sqrt(self.history.history['val_loss'])
 
         return test_loss
