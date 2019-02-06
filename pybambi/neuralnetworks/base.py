@@ -66,7 +66,7 @@ class Predictor(object):
         err = "Predictor: You need to implement an uncertainty function"
         raise NotImplementedError(err)
 
-    def logLInRangeOfTrainingData(self,loglikelihood):
+    def logLInRangeOfTrainingData(self, loglikelihood):
         """Checks to see if the supplied log likelihood value is within the 
            current range of likelihoods, including the uncertainty
         
@@ -77,6 +77,7 @@ class Predictor(object):
         """
 
         inRange = true
-        if loglikelihood > (self._maxLogL + uncertainty()) or loglikelihood < (self._minLogL - uncertainty())inRange = false
+        if loglikelihood > self._maxLogL + self.uncertainty() or loglikelihood < self._minLogL - self.uncertainty():
+            inRange = false
         return inRange
         
