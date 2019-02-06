@@ -50,3 +50,14 @@ class Predictor(object):
         """
         err = "Predictor: You need to implement a call function"
         raise NotImplementedError(err)
+
+    def uncertainty(self):
+        """Returns an uncertainty value for the trained model
+
+        Returns
+        -------
+        uncertainty value
+
+        """
+        err = "Predictor: You need to implement an uncertainty function"
+        raise NotImplementedError(err)

@@ -76,7 +76,7 @@ class KerasNetInterpolation(Predictor):
 
         # Now compile the model
         # Need to choose training optimiser, and the loss function
-        model.compile(optimizer='adam', loss='mean_squared_error')
+        model.compile(optimizer='adam', loss='mean_squared_error', metrics='mean_squared_error')
 
         self._history = model.fit(params_training, logL_training,
                                   validation_data=(params_test, logL_test),
@@ -99,3 +99,15 @@ class KerasNetInterpolation(Predictor):
         x_ = numpy.atleast_2d(x)
         y = self._model.predict(x_)
         return numpy.squeeze(y)
+
+    def uncertainty(self):
+        """Returns an uncertainty value for the trained keras model
+
+        Returns
+        -------
+        uncertainty value
+
+        """
+        test_loss = math.sqrt(self._history.history['val_loss'])
+        
+        return test_loss
