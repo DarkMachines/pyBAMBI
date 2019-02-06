@@ -4,6 +4,7 @@ Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 """
 import os
+import thumper
 from pybambi.dumper import dumper
 
 
@@ -32,6 +33,12 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         efficiency for multinest.
         Default `0.5**nDims`
 
+    learner: string (canonically)
+        information indicating what learning
+        algorithm to use for approximating
+        the likelihood.
+        Defalut `'keras'`
+
     """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
@@ -39,9 +46,13 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     root = kwargs.pop('root', os.path.join('chains', nested_sampler))
     num_repeats = kwargs.pop('num_repeats', nDims*5)
     eff = kwargs.pop('eff', 0.5**nDims)
+    learner = kwargs.pop('learner', "keras")
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
+
+    # Set up the global manager of the BAMBI session.
+    Thumper = BambiManager(learner)
 
     # Choose and run sampler
     if nested_sampler == 'polychord':

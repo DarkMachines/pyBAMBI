@@ -15,7 +15,7 @@ class Predictor(object):
     Parameters
     ----------
     params:
-        `numpy.array of` physical parameters to train on
+        `numpy.array` of physical parameters to train on
         shape (ntrain, ndims)
 
     logL:
