@@ -8,7 +8,7 @@ import thumper
 from pybambi.dumper import dumper
 
 
-def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
+def run_pyBAMBI(input_loglikelihood, prior, nDims, **kwargs):
     """Run pyBAMBI.
 
     Parameters
@@ -54,6 +54,11 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     # Set up the global manager of the BAMBI session.
     Thumper = BambiManager(learner)
 
+    def loglikelihood(theta):
+        logL = Thumper.get_loglikelihood(input_loglikelihood,theta)
+        loglikelihood.called = True
+        return logL
+    
     # Choose and run sampler
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
