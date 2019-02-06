@@ -1,11 +1,11 @@
-from pybambi.neuralnetworks.nearestneighbor import NearestNeighborInterpolation
+from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
 import numpy
 
 
-def test_NearestNeighborInterpolation():
+def test_NearestNeighbourInterpolation():
     params = numpy.array([[0, 0], [0, 1], [1, 1], [1, 0]])
     logL = numpy.array([1, 2, 3, 4])
-    p = NearestNeighborInterpolation(params, logL)
+    p = NearestNeighbourInterpolation(params, logL)
     for t, l in zip(params, logL):
         assert p(t) == l
 

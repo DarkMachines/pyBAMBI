@@ -5,7 +5,7 @@ Date: Feb 2019
 """
 
 from pybambi.neuralnetworks.kerasnet import KerasNetInterpolation
-from pybambi.neuralnetworks.nearestneighbour import NearestNeighborInterpolation
+from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
 
 
 class BambiManager(object):
@@ -28,8 +28,8 @@ class BambiManager(object):
     def make_learner(self):
         if self.learner == 'keras':
             return KerasNetInterpolation()
-        elif self.learner == 'nearestneighbor':
-            return NearestNeighborInterpolation()
+        elif self.learner == 'nearestneighbour':
+            return NearestNeighbourInterpolation()
         else:
             raise NotImplementedError('learner %s is not implemented.' % learner)
 
@@ -40,8 +40,7 @@ class BambiManager(object):
         print("dead_params is an array of shape ", dead_params.shape)
         print("-----------------------------")
 
-
-    def get_loglikelihood(self, theta):
+    def loglikelihood(self, theta):
         # Do some kind of logic to determine if proxy is good enough
         good_enough = False
         if good_enough:
@@ -50,10 +49,9 @@ class BambiManager(object):
         else:
             return self._loglikelihood(theta)
 
-
     def train_new_learner(self):
         self.old_learners.append(self.current_learner)
         self.current_learner = make_learner()
 
-
     def retrain_old_learner(self, learner):
+        pass
