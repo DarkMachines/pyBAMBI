@@ -4,8 +4,7 @@ Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 """
 import os
-import thumper
-from pybambi.dumper import dumper
+from pybambi.manager import BambiManager
 
 
 def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
@@ -52,17 +51,17 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
 
     # Set up the global manager of the BAMBI session.
-    Thumper = BambiManager(learner)
+    thumper = BambiManager(loglikelihood, learner)
 
     # Choose and run sampler
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
-        run_polychord(loglikelihood, prior, dumper, nDims,
+        run_polychord(thumper.loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, num_repeats)
 
     elif nested_sampler == 'multinest':
         from pybambi.multinest import run_multinest
-        run_multinest(loglikelihood, prior, dumper, nDims,
+        run_multinest(thumper.loglikelihood, prior, thumper.dumper, nDims,
                       nlive, root, eff)
 
     else:

@@ -21,7 +21,8 @@ class BambiManager(object):
 
     old_learners = []
 
-    def __init__(self, learner):
+    def __init__(self, loglikelihood, learner):
+        self._loglikelihood = loglikelihood
         if (learner == 'keras')
             def self.make_learner():
                 return KerasNetInterpolation()
@@ -32,8 +33,22 @@ class BambiManager(object):
             raise NotImplementedError('Specified learner is not implemented.')
 
 
+    def dumper(self, live_params, live_loglikes, dead_params, dead_loglikes):
+        print("-----------------------------")
+        print("Use thumper to do stuff here")
+        print("live_params is an array of shape ", live_params.shape)
+        print("dead_params is an array of shape ", dead_params.shape)
+        print("-----------------------------")
+
+
     def get_loglikelihood(loglikelihood, theta):
-    # needs to test if prediction is good enough, then call self.learner(theta), otherwise call likelihood(theta)
+        # Do some kind of logic to determine if proxy is good enough
+        good_enough = False
+        if good_enough:
+            # Use proxy
+            pass
+        else:
+            return self._loglikelihood(theta)
 
 
     def notify_of_new_training_data(live_par, live_lnl, dead_par, dead_lnl):
