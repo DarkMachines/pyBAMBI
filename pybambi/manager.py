@@ -41,7 +41,7 @@ class BambiManager(object):
         print("-----------------------------")
 
 
-    def get_loglikelihood(loglikelihood, theta):
+    def get_loglikelihood(self, theta):
         # Do some kind of logic to determine if proxy is good enough
         good_enough = False
         if good_enough:
@@ -51,11 +51,9 @@ class BambiManager(object):
             return self._loglikelihood(theta)
 
 
-    def notify_of_new_training_data(live_par, live_lnl, dead_par, dead_lnl):
-
-
-    def train_new_learner():
+    def train_new_learner(self):
         self.old_learners.append(self.current_learner)
         self.current_learner = make_learner()
 
-    def retrain_old_learner(learner):
+
+    def retrain_old_learner(self, learner):
