@@ -46,7 +46,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     root = kwargs.pop('root', os.path.join('chains', nested_sampler))
     num_repeats = kwargs.pop('num_repeats', nDims*5)
     eff = kwargs.pop('eff', 0.5**nDims)
-    learner = kwargs.pop('learner', "keras")
+    learner = kwargs.pop('learner', 'keras')
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
