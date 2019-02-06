@@ -6,7 +6,8 @@ Date: November 2018
 from numpy.ctypeslib import as_array
 
 
-def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
+def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
+                  eff):
     """Run MultiNest.
 
     See https://arxiv.org/abs/0809.3437 for more detail
@@ -46,6 +47,9 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
     root: str
         base name for output files
 
+    ndump: int
+        How many iterations between dumper function calls
+
     eff: float
         Efficiency of MultiNest
 
@@ -66,5 +70,5 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, eff):
 
     pymultinest.run(multinest_loglikelihood, multinest_prior, nDims,
                     resume=False, verbose=True, dump_callback=multinest_dumper,
-                    n_iter_before_update=nlive//10, n_live_points=nlive,
+                    n_iter_before_update=ndump//10, n_live_points=nlive,
                     outputfiles_basename=root, sampling_efficiency=eff)

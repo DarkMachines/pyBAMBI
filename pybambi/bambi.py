@@ -36,7 +36,11 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         information indicating what learning
         algorithm to use for approximating
         the likelihood.
-        Defalut `'keras'`
+        Default `'keras'`
+
+    ntrain: int
+        How many iterations between training
+        Default `nlive/2`
 
     """
     # Process kwargs
@@ -46,6 +50,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     num_repeats = kwargs.pop('num_repeats', nDims*5)
     eff = kwargs.pop('eff', 0.5**nDims)
     learner = kwargs.pop('learner', 'keras')
+    ntrain = kwargs.pop('ntrain', nlive//2)
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
@@ -57,12 +62,12 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
         run_polychord(thumper.loglikelihood, prior, thumper.dumper, nDims,
-                      nlive, root, num_repeats)
+                      nlive, root, ntrain, num_repeats)
 
     elif nested_sampler == 'multinest':
         from pybambi.multinest import run_multinest
         run_multinest(thumper.loglikelihood, prior, thumper.dumper, nDims,
-                      nlive, root, eff)
+                      nlive, root, ntrain, eff)
 
     else:
         raise NotImplementedError('nested sampler %s is not implemented'
