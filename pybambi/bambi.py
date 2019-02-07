@@ -63,7 +63,8 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
 
     # Set up the global manager of the BAMBI session.
-    thumper = BambiManager(loglikelihood, learner, proxy_tolerance, failure_tolerance, ntrain)
+    thumper = BambiManager(loglikelihood, learner, proxy_tolerance,
+                           failure_tolerance, ntrain)
 
     # Choose and run sampler
     if nested_sampler == 'polychord':

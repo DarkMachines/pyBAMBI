@@ -26,7 +26,8 @@ class BambiManager(object):
 
     old_learners = []
 
-    def __init__(self, loglikelihood, learner, proxy_tolerance, failure_tolerance, ntrain):
+    def __init__(self, loglikelihood, learner, proxy_tolerance,
+                 failure_tolerance, ntrain):
         self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
@@ -50,7 +51,8 @@ class BambiManager(object):
         if not self._proxy_trained:
             params = np.concatenate((live_params, dead_params))
             loglikes = np.concatenate((live_loglks, dead_loglks))
-            self.train_new_learner(params[:self._ntrain, :],loglikes[:self._ntrain])
+            self.train_new_learner(params[:self._ntrain, :],
+                                   loglikes[:self._ntrain])
         if self._proxy_trained:
             print("Using trained proxy")
         else:

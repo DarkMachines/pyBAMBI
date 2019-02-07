@@ -75,7 +75,7 @@ class Predictor(object):
 
         Parameters
         ----------
-        loglikelihood: 
+        loglikelihood:
             Value of the log likelihood that needs checking
         """
 
