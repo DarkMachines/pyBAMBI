@@ -20,6 +20,6 @@ def prior(cube):
 
 
 run_pyBAMBI(loglikelihood, prior, nDims,
-            nested_sampler='multinest',
+            nested_sampler='polychord',
             nlive=500,
-            learner='nearestneighbour')
+            learner='keras')

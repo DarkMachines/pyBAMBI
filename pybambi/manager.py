@@ -26,14 +26,14 @@ class BambiManager(object):
 
     old_learners = []
 
-    def __init__(self, loglikelihood, learner, proxy_tolerance, ntrain):
+    def __init__(self, loglikelihood, learner, proxy_tolerance, failure_tolerance, ntrain):
         self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
         self._proxy_tolerance = proxy_tolerance
+        self._failure_tolerance = failure_tolerance
         self._ntrain = ntrain
         self._proxy_trained = False
-        self._rolling_failure_fraction = 0.0
 
     def make_learner(self, params, loglikes):
         if self._learner == 'keras':
@@ -50,7 +50,7 @@ class BambiManager(object):
         if not self._proxy_trained:
             params = np.concatenate((live_params, dead_params))
             loglikes = np.concatenate((live_loglks, dead_loglks))
-            self.train_new_learner(params[:self._ntrain],loglikes[:self._ntrain])
+            self.train_new_learner(params[:self._ntrain, :],loglikes[:self._ntrain])
         if self._proxy_trained:
             print("Using trained proxy")
         else:
@@ -67,6 +67,7 @@ class BambiManager(object):
         # If the learner can be trusted, use its estimate,
         # otherwise use the original like and update the failure status
         if self._current_learner.valid(candidate_loglikelihood):
+            print candidate_loglikelihood
             return candidate_loglikelihood
         else:
             self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0) *
@@ -87,6 +88,7 @@ class BambiManager(object):
               % sigma)
         if sigma < self._proxy_tolerance:
             self._proxy_trained = True
+            self._rolling_failure_fraction = 0.0
 
     def retrain_old_learner(self, learner):
         pass

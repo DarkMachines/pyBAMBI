@@ -45,7 +45,7 @@ class KerasNetInterpolation(Predictor):
                                       validation_data=(self.params_testing,
                                                        self.logL_testing),
                                       epochs=300,
-                                      callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.01, patience=10, restore_best_weights=True)])
+                                      callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.001, patience=10, restore_best_weights=True)])
 
     def _default_architecture(self):
         # Create model
