@@ -54,7 +54,7 @@ class KerasNetInterpolation(Predictor):
 
         self.history = self.model.fit(params_training, logL_training,
                                        validation_data=(params_test, logL_test),
-                                       epochs=100)
+                                       epochs=30)
 
 
     def _default_architecture(self):
