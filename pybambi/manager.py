@@ -48,8 +48,9 @@ class BambiManager(object):
 
     def dumper(self, live_params, live_loglks, dead_params, dead_loglks):
         if not self._proxy_trained:
-            self.train_new_learner(np.concatenate((live_params, dead_params)),
-                                   np.concatenate((live_loglks, dead_loglks)))
+            params = np.concatenate((live_params, dead_params))
+            loglikes = np.concatenate((live_loglks, dead_loglks))
+            self.train_new_learner(params[:self._ntrain],loglikes[:self._ntrain])
 
     def loglikelihood(self, params):
         # Short circuit to the full likelihood if proxy not yet fully trained

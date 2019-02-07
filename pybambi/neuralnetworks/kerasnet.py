@@ -10,7 +10,7 @@ import numpy
 from pybambi.neuralnetworks.base import Predictor
 from keras.models import Sequential
 from keras.layers import Dense
-
+from keras.callbacks import EarlyStopping
 
 class KerasNetInterpolation(Predictor):
     """Keras neural net interpolation.
@@ -54,7 +54,8 @@ class KerasNetInterpolation(Predictor):
 
         self.history = self.model.fit(params_training, logL_training,
                                        validation_data=(params_test, logL_test),
-                                       epochs=30)
+                                       epochs=300,
+                                       callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.01, patience=10, restore_best_weights=True)])
 
 
     def _default_architecture(self):
@@ -112,4 +113,4 @@ class KerasNetInterpolation(Predictor):
         """
         test_loss = numpy.sqrt(self.history.history['val_loss'])
 
-        return numpy.squeeze(test_loss[-1])
+        return numpy.squeeze(test_loss.min())
