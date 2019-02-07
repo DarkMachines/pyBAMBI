@@ -29,7 +29,6 @@ class Predictor(object):
         params = numpy.array(params)
         logL = numpy.array(logL)
 
-
         if len(params) != len(logL):
             raise ValueError("input and target must be the same length")
         elif params.ndim != 2:
@@ -45,8 +44,9 @@ class Predictor(object):
         self._maxLogL = numpy.max(logL)
         self._minLogL = numpy.min(logL)
         ntrain = int(split*nparams)
-        self.params_training, self.params_testing = numpy.split(params, [ntrain])
-        self.logL_training, self.logL_testing = numpy.split(logL, [ntrain])
+        indx = [ntrain]
+        self.params_training, self.params_testing = numpy.split(params, indx)
+        self.logL_training, self.logL_testing = numpy.split(logL, indx)
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.
@@ -75,7 +75,7 @@ class Predictor(object):
         err = "Predictor: You need to implement an uncertainty function"
         raise NotImplementedError(err)
 
-    def logLInRangeOfTrainingData(self, loglikelihood):
+    def valid(self, loglikelihood):
         """Checks to see if the supplied log likelihood value is within the
            current range of likelihoods, including the uncertainty
 

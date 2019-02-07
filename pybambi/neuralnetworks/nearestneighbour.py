@@ -29,10 +29,11 @@ class NearestNeighbourInterpolation(Predictor):
 
     def __init__(self, params, logL, split=0.8):
         """Construct predictor from training data."""
-        super(NearestNeighbourInterpolation, self).__init__(params, logL, split)
+        super(NearestNeighbourInterpolation,
+              self).__init__(params, logL, split)
 
-        self.std = numpy.std([self(par)-logL for par, logl in 
-                              zip(self.params_testing,self.logL_testing)])
+        self.std = numpy.std([self(par)-logL for par, logl in
+                              zip(self.params_testing, self.logL_testing)])
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.

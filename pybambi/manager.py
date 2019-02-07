@@ -60,16 +60,17 @@ class BambiManager(object):
         if not self._proxy_trained:
             return self._loglikelihood(params)
 
-        # Call the learner and check whether its estimate is to be trusted
+        # Call the learner
         candidate_loglikelihood = self._current_learner(params)
-        good_enough = logLInRangeOfTrainingData(candidate_likelihood)
 
         # If the learner can be trusted, use its estimate,
         # otherwise use the original like and update the failure status
-        if good_enough:
+        if self._current_learner.valid(candidate_loglikelihood):
             return candidate_loglikelihood
         else:
-            self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0)*self._rolling_failure_fraction)/self._ntrain
+            self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0) *
+                                              self._rolling_failure_fraction
+                                              ) / self._ntrain
             if self._rolling_failure_fraction > self._failure_tolerance:
                 self._proxy_trained = False
             return self._loglikelihood(params)
@@ -81,7 +82,8 @@ class BambiManager(object):
             pass
         self._current_learner = self.make_learner(params, loglikes)
         sigma = self._current_learner.uncertainty()
-        print("\nCurrent uncertainty in network log-likelihood predictions: %s" % sigma)
+        print("Current uncertainty in network log-likelihood predictions: %s"
+              % sigma)
         if sigma < self._proxy_tolerance:
             self._proxy_trained = True
 
