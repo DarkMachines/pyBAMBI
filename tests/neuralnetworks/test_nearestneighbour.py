@@ -1,4 +1,5 @@
-from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
+from pybambi.neuralnetworks.nearestneighbour \
+        import NearestNeighbourInterpolation
 import numpy
 
 

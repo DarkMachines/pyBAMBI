@@ -31,7 +31,7 @@ class Predictor(object):
 
         self._maxLogL = numpy.max(logL)
         self._minLogL = numpy.min(logL)
-        
+
         if len(params) != len(logL):
             raise ValueError("input and target must be the same length")
         elif params.ndim != 2:
@@ -67,17 +67,17 @@ class Predictor(object):
         raise NotImplementedError(err)
 
     def logLInRangeOfTrainingData(self, loglikelihood):
-        """Checks to see if the supplied log likelihood value is within the 
+        """Checks to see if the supplied log likelihood value is within the
            current range of likelihoods, including the uncertainty
-        
+
         Parameters
         ----------
         loglikelihood:
         Value of the log likelihood that needs checking
         """
 
-        inRange = true
-        if loglikelihood > self._maxLogL + self.uncertainty() or loglikelihood < self._minLogL - self.uncertainty():
-            inRange = false
+        inRange = True
+        if loglikelihood > self._maxLogL + self.uncertainty() \
+                or loglikelihood < self._minLogL - self.uncertainty():
+            inRange = False
         return inRange
-        
