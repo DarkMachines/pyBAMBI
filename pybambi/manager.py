@@ -8,6 +8,7 @@ import numpy as np
 
 from pybambi.neuralnetworks.kerasnet import KerasNetInterpolation
 from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
+import keras.models
 
 
 class BambiManager(object):
@@ -34,6 +35,9 @@ class BambiManager(object):
             return KerasNetInterpolation(params, loglikes)
         elif self._learner == 'nearestneighbor':
             return NearestNeighborInterpolation(params, loglikes)
+        elif issubclass(type(self._learner), keras.models.Model):
+            return KerasNetInterpolation(params, loglikes, model=self._learner)
+
         else:
             raise NotImplementedError('learner %s is not implemented.' % learner)
 
