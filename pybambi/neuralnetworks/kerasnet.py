@@ -81,8 +81,7 @@ class KerasNetInterpolation(Predictor):
 
         # Now compile the model
         # Need to choose training optimiser, and the loss function
-        model.compile(optimizer='adam', loss='mean_squared_error',
-                      metrics='mean_squared_error')
+        model.compile(optimizer='adam', loss='mean_squared_error')
 
         return model
 
