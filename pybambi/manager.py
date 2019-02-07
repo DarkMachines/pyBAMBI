@@ -39,6 +39,7 @@ class BambiManager(object):
         self.old_learners = []
 
     def make_learner(self, params, loglikes):
+        """Construct a Predictor."""
         if self._learner == 'keras':
             return KerasNetInterpolation(params, loglikes)
         elif self._learner == 'nearestneighbour':
@@ -50,6 +51,7 @@ class BambiManager(object):
                                       % self._learner)
 
     def dumper(self, live_params, live_loglks, dead_params, dead_loglks):
+        """Respond to signal from nested sampler."""
         if not self._proxy_trained:
             params = np.concatenate((live_params, dead_params))
             loglikes = np.concatenate((live_loglks, dead_loglks))
@@ -61,6 +63,7 @@ class BambiManager(object):
             print("Unable to use proxy")
 
     def loglikelihood(self, params):
+        """Bambi Proxy wrapper for original loglikelihood."""
         # Short circuit to the full likelihood if proxy not yet fully trained
         if not self._proxy_trained:
             return self._loglikelihood(params)
@@ -81,6 +84,7 @@ class BambiManager(object):
             return self._loglikelihood(params)
 
     def train_new_learner(self, params, loglikes):
+        """Train a new Predictor."""
         try:
             self.old_learners.append(self._current_learner)
         except AttributeError:
@@ -92,6 +96,3 @@ class BambiManager(object):
         if sigma < self._proxy_tolerance:
             self._proxy_trained = True
             self._rolling_failure_fraction = 0.0
-
-    def retrain_old_learner(self, learner):
-        pass
