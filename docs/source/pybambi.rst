@@ -19,10 +19,10 @@ pybambi.bambi module
     :undoc-members:
     :show-inheritance:
 
-pybambi.dumper module
----------------------
+pybambi.manager module
+----------------------
 
-.. automodule:: pybambi.dumper
+.. automodule:: pybambi.manager
     :members:
     :undoc-members:
     :show-inheritance:

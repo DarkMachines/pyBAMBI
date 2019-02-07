@@ -32,10 +32,9 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         efficiency for multinest.
         Default `0.5**nDims`
 
-    learner: string (canonically)
-        information indicating what learning
-        algorithm to use for approximating
-        the likelihood.
+    learner: object
+        information indicating what learning algorithm to use for approximating
+        the likelihood. Can be the string `'keras'`, or a `keras.models.Model`
         Default `'keras'`
 
     ntrain: int

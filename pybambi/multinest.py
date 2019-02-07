@@ -71,4 +71,5 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     pymultinest.run(multinest_loglikelihood, multinest_prior, nDims,
                     resume=False, verbose=True, dump_callback=multinest_dumper,
                     n_iter_before_update=ndump//10, n_live_points=nlive,
-                    outputfiles_basename=root, sampling_efficiency=eff)
+                    outputfiles_basename=root, sampling_efficiency=eff,
+                    evidence_tolerance=0.01)
