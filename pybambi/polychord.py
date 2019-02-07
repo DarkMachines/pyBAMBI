@@ -67,6 +67,7 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     settings.do_clustering = True
     settings.read_resume = False
     settings.compression_factor = numpy.exp(-float(ndump)/nlive)
+    settings.precision_criterion = 0.01
 
     def polychord_loglikelihood(theta):
         return loglikelihood(theta), []
