@@ -7,7 +7,8 @@ Date: Feb 2019
 import numpy as np
 
 from pybambi.neuralnetworks.kerasnet import KerasNetInterpolation
-from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
+from pybambi.neuralnetworks.nearestneighbour \
+        import NearestNeighbourInterpolation
 import keras.models
 
 
@@ -38,21 +39,22 @@ class BambiManager(object):
         if self._learner == 'keras':
             return KerasNetInterpolation(params, loglikes)
         elif self._learner == 'nearestneighbor':
-            return NearestNeighborInterpolation(params, loglikes)
+            return NearestNeighbourInterpolation(params, loglikes)
         elif issubclass(type(self._learner), keras.models.Model):
             return KerasNetInterpolation(params, loglikes, model=self._learner)
         else:
             raise NotImplementedError('learner %s is not implemented.'
                                       % self._learner)
 
-    def dumper(self, live_params, live_loglikes, dead_params, dead_loglikes):
+    def dumper(self, live_params, live_loglks, dead_params, dead_loglks):
         print("-----------------------------")
         print("Use thumper to do stuff here")
         print("live_params is an array of shape ", live_params.shape)
         print("dead_params is an array of shape ", dead_params.shape)
         print("-----------------------------")
         if not self._proxy_trained:  # and reached updint/2:
-            self.train_new_learner(np.concatenate((live_params, dead_params)), np.concatenate((live_loglikes, dead_loglikes)))
+            self.train_new_learner(np.concatenate((live_params, dead_params)),
+                                   np.concatenate((live_loglks, dead_loglks)))
 
     def loglikelihood(self, params):
         # Short circuit to the full likelihood if proxy not yet fully trained
@@ -63,12 +65,14 @@ class BambiManager(object):
         candidate_loglikelihood = self._current_learner(params)
         good_enough = logLInRangeOfTrainingData(candidate_likelihood)
 
-        # If the learner can be trusted, use its estimate, otherwise use the original like and update the failure status
+        # If the learner can be trusted, use its estimate,
+        # otherwise use the original like and update the failure status
         if good_enough:
             return candidate_loglikelihood
         else:
             self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0)*self._rolling_failure_fraction)/self._ntrain
-            if self._rolling_failure_fraction > self._failure_tolerance: self._proxy_trained = False
+            if self._rolling_failure_fraction > self._failure_tolerance:
+                self._proxy_trained = False
             return self._loglikelihood(params)
 
     def train_new_learner(self, params, loglikes):
