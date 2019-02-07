@@ -65,20 +65,22 @@ class Predictor(object):
         raise NotImplementedError(err)
 
     def uncertainty(self):
-        """Returns an uncertainty value for the trained model"""
+        """Uncertainty value for the trained model."""
         err = "Predictor: You need to implement an uncertainty function"
         raise NotImplementedError(err)
 
     def valid(self, loglikelihood):
-        """Checks to see if the supplied log likelihood value is within the
-           current range of likelihoods, including the uncertainty
+        """Check validity of proxy.
+
+        Checks to see if the supplied log likelihood value is within the
+        current range of likelihoods, including the uncertainty
 
         Parameters
         ----------
         loglikelihood:
             Value of the log likelihood that needs checking
-        """
 
+        """
         inRange = True
         if loglikelihood > self._maxLogL + self.uncertainty() \
                 or loglikelihood < self._minLogL - self.uncertainty():

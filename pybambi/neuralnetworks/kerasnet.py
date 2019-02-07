@@ -99,7 +99,7 @@ class KerasNetInterpolation(Predictor):
         return numpy.squeeze(y)
 
     def uncertainty(self):
-        """Returns an uncertainty value for the trained keras model"""
+        """Uncertainty value for the trained keras model."""
         test_loss = numpy.sqrt(self.history.history['val_loss'])
 
         return numpy.squeeze(test_loss.min())

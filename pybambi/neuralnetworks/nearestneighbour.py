@@ -25,6 +25,7 @@ class NearestNeighbourInterpolation(Predictor):
     logL:
         `numpy.array` of loglikelihoods to learn
         shape (ntrain,)
+
     """
 
     def __init__(self, params, logL, split=0.8):
@@ -46,11 +47,12 @@ class NearestNeighbourInterpolation(Predictor):
         Returns
         -------
         proxy loglikelihood value(s)
+
         """
         distances = numpy.linalg.norm(self.params_training - x, axis=1)
         i = numpy.argmin(distances)
         return self.logL_training[i]
 
     def uncertainty(self):
-        """Returns a rough uncertainty for the nearest neighbour model"""
+        """Rough uncertainty for the nearest neighbour model."""
         return self.std

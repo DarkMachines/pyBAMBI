@@ -21,13 +21,14 @@ class BambiManager(object):
 
     Parameters
     ----------
+    ntrain: int
+        Number of training points to use
 
     """
 
-    old_learners = []
-
     def __init__(self, loglikelihood, learner, proxy_tolerance,
                  failure_tolerance, ntrain):
+        """Construct bambi object."""
         self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
@@ -35,6 +36,7 @@ class BambiManager(object):
         self._failure_tolerance = failure_tolerance
         self._ntrain = ntrain
         self._proxy_trained = False
+        self.old_learners = []
 
     def make_learner(self, params, loglikes):
         if self._learner == 'keras':

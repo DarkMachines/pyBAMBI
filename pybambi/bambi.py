@@ -38,8 +38,8 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
         Default `'keras'`
 
     ntrain: int
-        How many iterations between training
-        Default `nlive/2`
+        Number of training points to use
+        Default `nlive`
 
     proxy_tolerance: float
         Required accuracy of proxy.
@@ -47,6 +47,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
 
     ns_output: int
         Nested sampling output level.
+
     """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
