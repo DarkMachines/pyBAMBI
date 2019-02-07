@@ -57,7 +57,8 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     import pymultinest
 
     def multinest_prior(cube, ndim, nparams):
-        cube[:] = prior(as_array(cube, shape=(nparams,)))
+        theta = prior(as_array(cube, shape=(nparams,)))
+        for i, elem in enumerate(theta): cube[i] = elem
 
     def multinest_loglikelihood(cube, ndim, nparams):
         return loglikelihood(as_array(cube, shape=(nparams,)))
