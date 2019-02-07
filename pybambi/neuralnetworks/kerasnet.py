@@ -96,7 +96,7 @@ class KerasNetInterpolation(Predictor):
         """
         x_ = numpy.atleast_2d(x)
         y = self.model.predict(x_)
-        return numpy.squeeze(y)
+        return float(numpy.squeeze(y))
 
     def uncertainty(self):
         """Uncertainty value for the trained keras model."""
