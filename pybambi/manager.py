@@ -67,7 +67,6 @@ class BambiManager(object):
         # If the learner can be trusted, use its estimate,
         # otherwise use the original like and update the failure status
         if self._current_learner.valid(candidate_loglikelihood):
-            print candidate_loglikelihood
             return candidate_loglikelihood
         else:
             self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0) *
