@@ -4,9 +4,10 @@ Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 """
 import os
+import numpy
 
 
-def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
+def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
                   num_repeats):
     """Run PolyChord.
 
@@ -47,6 +48,9 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     root: str
         base name for output files
 
+    ndump: int
+        How many iterations between dumper function calls
+
     num_repeats: int
         Length of chain to generate new live points
 
@@ -62,12 +66,13 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root,
     settings.num_repeats = num_repeats
     settings.do_clustering = True
     settings.read_resume = False
+    settings.compression_factor = numpy.exp(-float(ndump)/nlive)
 
     def polychord_loglikelihood(theta):
         return loglikelihood(theta), []
 
     def polychord_dumper(live, dead, logweights, logZ, logZerr):
-        dumper(live[:, :-2], live[:, -1], dead[:, :-2], dead[:, :-1])
+        dumper(live[:, :-2], live[:, -1], dead[:, :-2], dead[:, -1])
 
     pypolychord.run_polychord(polychord_loglikelihood, nDims, nDerived,
                               settings, prior, polychord_dumper)

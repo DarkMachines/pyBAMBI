@@ -7,7 +7,7 @@ Date: Feb 2019
 import numpy as np
 
 from pybambi.neuralnetworks.kerasnet import KerasNetInterpolation
-from pybambi.neuralnetworks.nearestneighbour import NearestNeighborInterpolation
+from pybambi.neuralnetworks.nearestneighbour import NearestNeighbourInterpolation
 
 
 class BambiManager(object):
@@ -23,12 +23,13 @@ class BambiManager(object):
 
     old_learners = []
 
-
-    def __init__(self, loglikelihood, learner):
+    def __init__(self, loglikelihood, learner, proxy_tolerance):
+        self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
         self._proxy_trained = False
         self._rolling_failure_fraction = 0.0
+
 
     def make_learner(self, params, loglikes):
         if self._learner == 'keras':
@@ -68,6 +69,7 @@ class BambiManager(object):
 
 
     def train_new_learner(self, params, loglikes):
+        return
         self.old_learners.append(self.current_learner)
         self.current_learner = make_learner(params, loglikes)
         if self.current_learner.uncertainty() < self._proxy_tolerance: _proxy_trained = True

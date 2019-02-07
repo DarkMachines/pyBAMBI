@@ -1,18 +1,18 @@
-"""Nearest neighbor interpolation predictor.
+"""Nearest neighbour interpolation predictor.
 
 Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 
 
-This implements a nearest neighbor interpolation, and is designed as a
+This implements a nearest neighbour interpolation, and is designed as a
 placeholder predictor, rather than an actual neural network
 """
 import numpy
 from pybambi.neuralnetworks.base import Predictor
 
 
-class NearestNeighborInterpolation(Predictor):
-    """Nearest Neighbor interpolation.
+class NearestNeighbourInterpolation(Predictor):
+    """Nearest Neighbour interpolation.
 
     Returns the loglikelihood of the training point closest in parameter space
 
@@ -30,7 +30,7 @@ class NearestNeighborInterpolation(Predictor):
 
     def __init__(self, params, logL):
         """Construct predictor from training data."""
-        super(NearestNeighborInterpolation, self).__init__(params, logL)
+        super(NearestNeighbourInterpolation, self).__init__(params, logL)
         self._params = params[:]
         self._logL = logL[:]
 
