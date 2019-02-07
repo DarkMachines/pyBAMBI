@@ -39,12 +39,11 @@ class KerasNetInterpolation(Predictor):
             self.model = self._default_architecture()
         else:
             self.model = model
-
         self.history = self.model.fit(self.params_training,
                                       self.logL_training,
                                       validation_data=(self.params_testing,
                                                        self.logL_testing),
-                                      epochs=100)
+                                      epochs=30)
 
     def _default_architecture(self):
         # Create model
@@ -101,4 +100,4 @@ class KerasNetInterpolation(Predictor):
         """
         test_loss = numpy.sqrt(self.history.history['val_loss'])
 
-        return test_loss
+        return numpy.squeeze(test_loss[-1])

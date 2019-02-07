@@ -47,12 +47,7 @@ class BambiManager(object):
                                       % self._learner)
 
     def dumper(self, live_params, live_loglks, dead_params, dead_loglks):
-        print("-----------------------------")
-        print("Use thumper to do stuff here")
-        print("live_params is an array of shape ", live_params.shape)
-        print("dead_params is an array of shape ", dead_params.shape)
-        print("-----------------------------")
-        if not self._proxy_trained:  # and reached updint/2:
+        if not self._proxy_trained:
             self.train_new_learner(np.concatenate((live_params, dead_params)),
                                    np.concatenate((live_loglks, dead_loglks)))
         if self._proxy_trained:
@@ -85,7 +80,9 @@ class BambiManager(object):
         except AttributeError:
             pass
         self._current_learner = self.make_learner(params, loglikes)
-        if self._current_learner.uncertainty() < self._proxy_tolerance:
+        sigma = self._current_learner.uncertainty()
+        print("\nCurrent uncertainty in network log-likelihood predictions: %s" % sigma)
+        if sigma < self._proxy_tolerance:
             self._proxy_trained = True
 
     def retrain_old_learner(self, learner):
