@@ -45,6 +45,9 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     proxy_tolerance: float
         Required accuracy of proxy.
         Default `0.01`
+
+    ns_output: int
+        Nested sampling output level.
     """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
@@ -54,7 +57,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     eff = kwargs.pop('eff', 0.5**nDims)
     learner = kwargs.pop('learner', 'keras')
     ntrain = kwargs.pop('ntrain', nlive//2)
-    proxy_tolerance = kwargs.pop('proxy_tolerance', 0.01)
+    proxy_tolerance = kwargs.pop('proxy_tolerance', 0.1)
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)

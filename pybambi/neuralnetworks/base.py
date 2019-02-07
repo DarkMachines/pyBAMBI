@@ -24,13 +24,11 @@ class Predictor(object):
 
     """
 
-    def __init__(self, params, logL):
+    def __init__(self, params, logL, split=0.8):
         """Construct predictor from training data."""
         params = numpy.array(params)
         logL = numpy.array(logL)
 
-        self._maxLogL = numpy.max(logL)
-        self._minLogL = numpy.min(logL)
 
         if len(params) != len(logL):
             raise ValueError("input and target must be the same length")
@@ -38,6 +36,17 @@ class Predictor(object):
             raise ValueError("input must be two-dimensional")
         elif logL.ndim != 1:
             raise ValueError("target must be one-dimensional")
+
+        nparams = len(params)
+        randomize = numpy.random.permutation(nparams)
+        params = params[randomize]
+        logL = logL[randomize]
+
+        self._maxLogL = numpy.max(logL)
+        self._minLogL = numpy.min(logL)
+        ntrain = int(split*nparams)
+        self.params_training, self.params_testing = numpy.split(params, [ntrain])
+        self.logL_training, self.logL_testing = numpy.split(logL, [ntrain])
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.

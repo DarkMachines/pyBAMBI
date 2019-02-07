@@ -38,7 +38,7 @@ class BambiManager(object):
     def make_learner(self, params, loglikes):
         if self._learner == 'keras':
             return KerasNetInterpolation(params, loglikes)
-        elif self._learner == 'nearestneighbor':
+        elif self._learner == 'nearestneighbour':
             return NearestNeighbourInterpolation(params, loglikes)
         elif issubclass(type(self._learner), keras.models.Model):
             return KerasNetInterpolation(params, loglikes, model=self._learner)
@@ -55,6 +55,10 @@ class BambiManager(object):
         if not self._proxy_trained:  # and reached updint/2:
             self.train_new_learner(np.concatenate((live_params, dead_params)),
                                    np.concatenate((live_loglks, dead_loglks)))
+        if self._proxy_trained:
+            print("Using trained proxy")
+        else:
+            print("Unable to use proxy")
 
     def loglikelihood(self, params):
         # Short circuit to the full likelihood if proxy not yet fully trained
