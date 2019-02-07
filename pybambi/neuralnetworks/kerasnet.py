@@ -12,6 +12,7 @@ from keras.models import Sequential
 from keras.layers import Dense
 from keras.callbacks import EarlyStopping
 
+
 class KerasNetInterpolation(Predictor):
     """Keras neural net interpolation.
 
@@ -40,12 +41,17 @@ class KerasNetInterpolation(Predictor):
         else:
             self.model = model
 
+        callbacks = [EarlyStopping(monitor='val_loss', mode='min',
+                                   min_delta=0.001,
+                                   patience=10,
+                                   restore_best_weights=True)]
+
         self.history = self.model.fit(self.params_training,
                                       self.logL_training,
                                       validation_data=(self.params_testing,
                                                        self.logL_testing),
                                       epochs=300,
-                                      callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.001, patience=10, restore_best_weights=True)])
+                                      callbacks=callbacks)
 
     def _default_architecture(self):
         # Create model
