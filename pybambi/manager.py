@@ -29,9 +29,10 @@ class BambiManager(object):
         self.proxy_tolerance = proxy_tolerance
         self._loglikelihood = loglikelihood
         self._learner = learner
+        self._proxy_tolerance = proxy_tolerance
+        self._ntrain = ntrain
         self._proxy_trained = False
         self._rolling_failure_fraction = 0.0
-        self.ntrain = ntrain
 
     def make_learner(self, params, loglikes):
         if self._learner == 'keras':
@@ -66,15 +67,17 @@ class BambiManager(object):
         if good_enough:
             return candidate_loglikelihood
         else:
-            self._rolling_failure_fraction = (1.0 + (self.ntrain - 1.0)*self._rolling_failure_fraction)/self.ntrain
+            self._rolling_failure_fraction = (1.0 + (self._ntrain - 1.0)*self._rolling_failure_fraction)/self._ntrain
             if self._rolling_failure_fraction > self._failure_tolerance: self._proxy_trained = False
             return self._loglikelihood(params)
 
     def train_new_learner(self, params, loglikes):
-        return
-        self.old_learners.append(self.current_learner)
-        self.current_learner = self.make_learner(params, loglikes)
-        if self.current_learner.uncertainty() < self._proxy_tolerance:
+        try:
+            self.old_learners.append(self._current_learner)
+        except AttributeError:
+            pass
+        self._current_learner = self.make_learner(params, loglikes)
+        if self._current_learner.uncertainty() < self._proxy_tolerance:
             self._proxy_trained = True
 
     def retrain_old_learner(self, learner):
