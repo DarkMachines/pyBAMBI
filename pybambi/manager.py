@@ -77,7 +77,7 @@ class BambiManager(object):
             pass
         self._current_learner = self.make_learner(params, loglikes)
         sigma = self._current_learner.uncertainty()
-        print("\nCurrent network fractional uncertainty: %s" % sigma)
+        print("\nCurrent uncertainty in network log-likelihood predictions: %s" % sigma)
         if sigma < self._proxy_tolerance:
             self._proxy_trained = True
 
