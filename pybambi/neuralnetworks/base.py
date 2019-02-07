@@ -65,13 +65,7 @@ class Predictor(object):
         raise NotImplementedError(err)
 
     def uncertainty(self):
-        """Returns an uncertainty value for the trained model
-
-        Returns
-        -------
-        uncertainty value
-
-        """
+        """Returns an uncertainty value for the trained model"""
         err = "Predictor: You need to implement an uncertainty function"
         raise NotImplementedError(err)
 
@@ -81,8 +75,8 @@ class Predictor(object):
 
         Parameters
         ----------
-        loglikelihood:
-        Value of the log likelihood that needs checking
+        loglikelihood: 
+            Value of the log likelihood that needs checking
         """
 
         inRange = True

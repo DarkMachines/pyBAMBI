@@ -52,10 +52,5 @@ class NearestNeighbourInterpolation(Predictor):
         return self.logL_training[i]
 
     def uncertainty(self):
-        """Returns a rough uncertainty for the nearest neighbour model
-
-        Returns
-        -------
-        uncertainty value
-        """
+        """Returns a rough uncertainty for the nearest neighbour model"""
         return self.std
