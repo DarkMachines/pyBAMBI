@@ -33,30 +33,19 @@ class KerasNetInterpolation(Predictor):
 
     def __init__(self, params, logL, split=0.8, model=None):
         """Construct predictor from training data."""
-        super(KerasNetInterpolation, self).__init__(params, logL)
-
-        # Shuffle the params and logL in unison
-        # (important for splitting data into training and test sets)
-        nparams = len(params)
-        randomize = numpy.random.permutation(nparams)
-        self.params = params[randomize]
-        self.logL = logL[randomize]
-
-        # Now split into training and test sets
-        ntrain = int(split*nparams)
-        params_training, params_test = numpy.split(self.params, [ntrain])
-        logL_training, logL_test = numpy.split(self.logL, [ntrain])
+        super(KerasNetInterpolation, self).__init__(params, logL, split)
 
         if model is None:
-            model = self._default_architecture()
+            self.model = self._default_architecture()
+        else:
+            self.model = model
 
-        self.model = model
-
-        self.history = self.model.fit(params_training, logL_training,
-                                       validation_data=(params_test, logL_test),
-                                       epochs=300,
-                                       callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.01, patience=10, restore_best_weights=True)])
-
+        self.history = self.model.fit(self.params_training,
+                                      self.logL_training,
+                                      validation_data=(self.params_testing,
+                                                       self.logL_testing),
+                                      epochs=300,
+                                      callbacks=[EarlyStopping(monitor='val_loss', mode='min', min_delta=0.01, patience=10, restore_best_weights=True)])
 
     def _default_architecture(self):
         # Create model
@@ -68,7 +57,7 @@ class KerasNetInterpolation(Predictor):
         # Get number of input parameters
         # Note: if params contains extra quantities (ndim+others),
         # we need to change this
-        n_cols = self.params.shape[1]
+        n_cols = self.params_training.shape[1]
 
         # Add model layers, note choice of activation function (relu)
         # We will use 3 hidden layers and an output layer

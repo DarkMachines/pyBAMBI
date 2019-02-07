@@ -9,8 +9,8 @@ def loglikelihood(theta):
     """ Spherical Gaussian Likelihood """
     sigma = 0.1
     nDims = len(theta)
-    logL = -log(2*pi*sigma*sigma)*nDims/2.0
-    logL -= sum((theta/sigma)**2) / 2 + log(2) * nDims
+    logL = -sum((theta/sigma)**2) / 2
+    logL += -log(2*pi*sigma*sigma)*nDims/2.0 + log(2) * nDims
     return logL
 
 
@@ -19,4 +19,7 @@ def prior(cube):
     return -1 + 2 * cube
 
 
-run_pyBAMBI(loglikelihood, prior, nDims, nested_sampler='polychord', nlive=500)
+run_pyBAMBI(loglikelihood, prior, nDims,
+            nested_sampler='multinest',
+            nlive=500,
+            learner='nearestneighbour')

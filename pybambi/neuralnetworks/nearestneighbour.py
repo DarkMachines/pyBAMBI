@@ -25,14 +25,15 @@ class NearestNeighbourInterpolation(Predictor):
     logL:
         `numpy.array` of loglikelihoods to learn
         shape (ntrain,)
-
     """
 
-    def __init__(self, params, logL):
+    def __init__(self, params, logL, split=0.8):
         """Construct predictor from training data."""
-        super(NearestNeighbourInterpolation, self).__init__(params, logL)
-        self._params = params[:]
-        self._logL = logL[:]
+        super(NearestNeighbourInterpolation,
+              self).__init__(params, logL, split)
+
+        self.std = numpy.std([self(par)-logL for par, logl in
+                              zip(self.params_testing, self.logL_testing)])
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.
@@ -45,8 +46,16 @@ class NearestNeighbourInterpolation(Predictor):
         Returns
         -------
         proxy loglikelihood value(s)
-
         """
-        distances = numpy.linalg.norm(self._params - x, axis=1)
+        distances = numpy.linalg.norm(self.params_training - x, axis=1)
         i = numpy.argmin(distances)
-        return self._logL[i]
+        return self.logL_training[i]
+
+    def uncertainty(self):
+        """Returns a rough uncertainty for the nearest neighbour model
+
+        Returns
+        -------
+        uncertainty value
+        """
+        return self.std

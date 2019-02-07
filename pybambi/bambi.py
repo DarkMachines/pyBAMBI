@@ -45,6 +45,9 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     proxy_tolerance: float
         Required accuracy of proxy.
         Default `0.01`
+
+    ns_output: int
+        Nested sampling output level.
     """
     # Process kwargs
     nested_sampler = kwargs.pop('nested_sampler', 'polychord')
