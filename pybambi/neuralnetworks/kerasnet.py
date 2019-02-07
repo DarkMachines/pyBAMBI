@@ -112,4 +112,4 @@ class KerasNetInterpolation(Predictor):
         """
         test_loss = numpy.sqrt(self.history.history['val_loss'])
 
-        return test_loss
+        return numpy.squeeze(test_loss[-1])
