@@ -51,7 +51,7 @@ class BambiManager(object):
         print("dead_params is an array of shape ", dead_params.shape)
         print("-----------------------------")
         if not self._proxy_trained: #and reached updint/2:
-            train_new_learner(np.concatenate(live_params, dead_params), np.concatenate(live_loglikes, dead_loglikes))
+            self.train_new_learner(np.concatenate((live_params, dead_params)), np.concatenate((live_loglikes, dead_loglikes)))
 
 
     def loglikelihood(self, params):
