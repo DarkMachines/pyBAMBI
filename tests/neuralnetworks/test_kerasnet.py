@@ -19,8 +19,6 @@ def test_KerasNet():
     # Initialise the keras net example, which includes training
     p = KerasNetInterpolation(params, logL)
 
-    # Test 1D input has better than 5% accuracy
-    assert numpy.abs((p(params[0]) - logL[0]) / logL[0]) < 0.05
-
-    # Test 2D input has better than 5% accuracy
-    assert numpy.abs((p(params) - logL) / logL).max() < 0.05
+    # Test input has better than 5% accuracy
+    for i, l in enumerate(logL):
+        assert p(params[i]) - l < 0.05
