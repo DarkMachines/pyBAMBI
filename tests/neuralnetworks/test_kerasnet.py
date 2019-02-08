@@ -23,4 +23,3 @@ def test_KerasNet():
     for i, l in enumerate(logL):
         print(abs(p(params[i]) - l))
         assert abs(p(params[i]) - l) < 0.5
-
