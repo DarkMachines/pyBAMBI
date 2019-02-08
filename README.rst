@@ -49,11 +49,11 @@ You can clone the repository with
 
 .. code:: bash
 
-   git clone https://github.com/DarkMachines/pyBAMBI 
-
+   git clone git@github.com:DarkMachines/pyBAMBI.git
+   
 Although if you wish to
 `contribute <https://github.com/DarkMachines/pyBAMBI/blob/master/.github/CONTRIBUTING.md>`__,
-you should fork the repository to your own account.
+you can either create a new branch and push (if you are a member of the `DarkMachines <https://github.com/DarkMachines>`__ sampling community) or fork the repository to your own account.
 
 You can run the tests with either of the commands:
 
@@ -62,8 +62,3 @@ You can run the tests with either of the commands:
    python -m pytest tests
    python setup.py test
 
-
-Key idea
---------
-
-Use the dumper functions to train a neural network.
