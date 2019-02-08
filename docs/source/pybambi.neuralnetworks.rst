@@ -20,10 +20,10 @@ pybambi.neuralnetworks.kerasnet module
     :undoc-members:
     :show-inheritance:
 
-pybambi.neuralnetworks.nearestneighbor module
----------------------------------------------
+pybambi.neuralnetworks.nearestneighbour module
+----------------------------------------------
 
-.. automodule:: pybambi.neuralnetworks.nearestneighbor
+.. automodule:: pybambi.neuralnetworks.nearestneighbour
     :members:
     :undoc-members:
     :show-inheritance:

@@ -1,18 +1,18 @@
-"""Nearest neighbor interpolation predictor.
+"""Nearest neighbour interpolation predictor.
 
 Author: Will Handley (wh260@cam.ac.uk)
 Date: November 2018
 
 
-This implements a nearest neighbor interpolation, and is designed as a
+This implements a nearest neighbour interpolation, and is designed as a
 placeholder predictor, rather than an actual neural network
 """
 import numpy
 from pybambi.neuralnetworks.base import Predictor
 
 
-class NearestNeighborInterpolation(Predictor):
-    """Nearest Neighbor interpolation.
+class NearestNeighbourInterpolation(Predictor):
+    """Nearest Neighbour interpolation.
 
     Returns the loglikelihood of the training point closest in parameter space
 
@@ -28,11 +28,13 @@ class NearestNeighborInterpolation(Predictor):
 
     """
 
-    def __init__(self, params, logL):
+    def __init__(self, params, logL, split=0.8):
         """Construct predictor from training data."""
-        super(NearestNeighborInterpolation, self).__init__(params, logL)
-        self._params = params[:]
-        self._logL = logL[:]
+        super(NearestNeighbourInterpolation,
+              self).__init__(params, logL, split)
+
+        self.std = numpy.std([self(par)-logL for par, logl in
+                              zip(self.params_testing, self.logL_testing)])
 
     def __call__(self, x):
         """Calculate proxy loglikelihood.
@@ -47,6 +49,10 @@ class NearestNeighborInterpolation(Predictor):
         proxy loglikelihood value(s)
 
         """
-        distances = numpy.linalg.norm(self._params - x, axis=1)
+        distances = numpy.linalg.norm(self.params_training - x, axis=1)
         i = numpy.argmin(distances)
-        return self._logL[i]
+        return self.logL_training[i]
+
+    def uncertainty(self):
+        """Rough uncertainty for the nearest neighbour model."""
+        return self.std
