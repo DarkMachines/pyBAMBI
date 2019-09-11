@@ -14,11 +14,9 @@ env:
 matrix:
     include:
         - os: osx
-          osx_image: xcode10.1
           language: generic
           env: PYTHON_VERSION=python2 MPI=
         - os: osx
-          osx_image: xcode10.1
           language: generic
           env: PYTHON_VERSION=python3 MPI=
 
