@@ -33,7 +33,6 @@ addons:
     homebrew:
         packages: 
             - gcc
-            - gfortran
             - python2
             - python3
             - imagemagick
