@@ -37,6 +37,8 @@ addons:
             - python2
             - python3
             - imagemagick
+        update:
+            true
 
 before_install:
     # OSX setup
