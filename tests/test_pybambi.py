@@ -40,7 +40,7 @@ def test_run_pyBAMBI_multinest():
     prior.called = False
     pybambi.run_pyBAMBI(loglikelihood, prior, nDims,
                         nested_sampler='multinest',
-                        root='chains/multinest', nlive=50, 
+                        root='chains/multinest', nlive=50,
                         seed=0)
     assert(loglikelihood.called is True)
     assert(prior.called is True)
