@@ -4,6 +4,7 @@ import numpy
 
 
 def test_Predictor():
+    numpy.random.seed(0)
     ntrain = 500
     ndim = 5
     d2 = numpy.random.rand(ntrain, ndim)
