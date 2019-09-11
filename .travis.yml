@@ -52,6 +52,7 @@ before_install:
           else
                pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py2-none-any.whl";
           fi;
+          export FC=gfortran;
       fi
 
     # PolyChord install
