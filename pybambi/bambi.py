@@ -59,6 +59,7 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     proxy_tolerance = kwargs.pop('proxy_tolerance', 0.1)
     failure_tolerance = kwargs.pop('failure_tolerance', 0.5)
     ntrain = kwargs.pop('ntrain', nlive)
+    seed = kwargs.pop('seed', -1)
 
     if kwargs:
         raise TypeError('Unexpected **kwargs: %r' % kwargs)
@@ -71,12 +72,12 @@ def run_pyBAMBI(loglikelihood, prior, nDims, **kwargs):
     if nested_sampler == 'polychord':
         from pybambi.polychord import run_polychord
         run_polychord(thumper.loglikelihood, prior, thumper.dumper, nDims,
-                      nlive, root, ntrain//2, num_repeats)
+                      nlive, root, ntrain//2, num_repeats, seed)
 
     elif nested_sampler == 'multinest':
         from pybambi.multinest import run_multinest
         run_multinest(thumper.loglikelihood, prior, thumper.dumper, nDims,
-                      nlive, root, ntrain//2, eff)
+                      nlive, root, ntrain//2, eff, seed)
 
     else:
         raise NotImplementedError('nested sampler %s is not implemented'

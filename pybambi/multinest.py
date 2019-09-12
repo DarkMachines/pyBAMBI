@@ -7,7 +7,7 @@ from numpy.ctypeslib import as_array
 
 
 def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
-                  eff):
+                  eff, seed=-1):
     """Run MultiNest.
 
     See https://arxiv.org/abs/0809.3437 for more detail
@@ -53,6 +53,9 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     eff: float
         Efficiency of MultiNest
 
+    seed: int
+        Seed for sampler. Optional, no default seed.
+
     """
     import pymultinest
 
@@ -74,4 +77,4 @@ def run_multinest(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
                     resume=False, verbose=True, dump_callback=multinest_dumper,
                     n_iter_before_update=ndump//10, n_live_points=nlive,
                     outputfiles_basename=root, sampling_efficiency=eff,
-                    evidence_tolerance=0.01)
+                    evidence_tolerance=0.01, seed=seed)
