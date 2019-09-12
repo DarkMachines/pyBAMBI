@@ -28,8 +28,8 @@ addons:
     apt:
         packages:
             - gfortran
-            - libblas3
-            - liblapack3
+            - libblas-dev
+            - liblapacke-dev
             - openmpi-bin
             - libopenmpi-dev
     homebrew:
