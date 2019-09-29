@@ -8,7 +8,7 @@ import numpy
 
 
 def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
-                  num_repeats):
+                  num_repeats, seed=-1):
     """Run PolyChord.
 
     See https://arxiv.org/abs/1506.00171 for more detail
@@ -54,6 +54,9 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     num_repeats: int
         Length of chain to generate new live points
 
+    seed: int
+        Seed for sampler. Optional, no default seed.
+
     """
     import pypolychord
     from pypolychord.settings import PolyChordSettings
@@ -68,6 +71,7 @@ def run_polychord(loglikelihood, prior, dumper, nDims, nlive, root, ndump,
     settings.read_resume = False
     settings.compression_factor = numpy.exp(-float(ndump)/nlive)
     settings.precision_criterion = 0.01
+    settings.seed = seed
 
     def polychord_loglikelihood(theta):
         return loglikelihood(theta), []
