@@ -12,7 +12,18 @@ env:
 
 # OSX matrix
 matrix:
+    fast_finish: true
     include:
+        - os: osx
+          osx_image: xcode10.1
+          language: generic
+          env: PYTHON_VERSION=python2 MPI=
+        - os: osx
+          osx_image: xcode10.1
+          language: generic
+          env: PYTHON_VERSION=python3 MPI=
+
+    allow_failures:
         - os: osx
           osx_image: xcode10.1
           language: generic
