@@ -29,7 +29,7 @@ addons:
     homebrew:
         packages: 
             - gcc
-            - python
+            - pyenv
             - imagemagick
         update: true
 
@@ -38,8 +38,8 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew link gcc;
-          alias python=/usr/local/bin/python3
-          alias pip=/usr/local/bin/pip3
+          pyenv install 3.7.6
+          pyenv global 3.7.3
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
 
