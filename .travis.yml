@@ -1,13 +1,13 @@
 # linux matrix
-language: python
-os: linux
-python:
-    - "3.7"
-    - "3.6"
-    - "3.5"
-env:
-  - MPI=
-  - MPI=1
+#language: python
+#os: linux
+#python:
+#    - "3.7"
+#    - "3.6"
+#    - "3.5"
+#env:
+#  - MPI=
+#  - MPI=1
 
 # OSX matrix
 matrix:
@@ -29,7 +29,7 @@ addons:
     homebrew:
         packages: 
             - gcc
-            - python3
+            - python
             - imagemagick
         update: true
 
@@ -38,6 +38,8 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew link gcc;
+          alias python=/usr/local/bin/python3
+          alias pip=/usr/local/bin/pip3
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
 
