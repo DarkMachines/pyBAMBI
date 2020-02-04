@@ -39,7 +39,7 @@ before_install:
       then 
           brew link gcc;
           pyenv install 3.7.6;
-          pyenv global 3.7.3;
+          pyenv global 3.7.6;
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
 
