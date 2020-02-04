@@ -80,7 +80,7 @@ before_install:
 
     # MultiNest install
     - git clone https://github.com/farhanferoz/MultiNest MultiNest_repo
-    - cp -r MultiNest_repo/MultiNest_v3.11_CMake/multinest MultiNest
+    - cp -r MultiNest_repo/MultiNest_v3.12_CMake/multinest MultiNest
     - mkdir -p MultiNest/build
     - cd MultiNest/build
     - cmake ..
