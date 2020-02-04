@@ -38,8 +38,8 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew link gcc;
-          pyenv install 3.7.6
-          pyenv global 3.7.3
+          pyenv install 3.7.6;
+          pyenv global 3.7.3;
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
 
