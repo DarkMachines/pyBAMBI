@@ -4,31 +4,17 @@ os: linux
 python:
     - "3.7"
     - "3.6"
-    - "2.7"
+    - "3.5"
 env:
   - MPI=
   - MPI=1
 
 # OSX matrix
 matrix:
-    fast_finish: true
     include:
         - os: osx
           language: generic
-          env: PYTHON_VERSION=python2 MPI=
-        - os: osx
-          language: generic
-          env: PYTHON_VERSION=python3 MPI=
-
-    allow_failures:
-        - os: osx
-          osx_image: xcode10.1
-          language: generic
-          env: PYTHON_VERSION=python2 MPI=
-        - os: osx
-          osx_image: xcode10.1
-          language: generic
-          env: PYTHON_VERSION=python3 MPI=
+          env: MPI=
 
 
 # System packages
@@ -43,7 +29,6 @@ addons:
     homebrew:
         packages: 
             - gcc
-            - python2
             - python3
             - imagemagick
         update: true
@@ -53,15 +38,7 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew link gcc;
-          pip install virtualenv;
-          virtualenv venv -p $PYTHON_VERSION;
-          source venv/bin/activate;
-          if [[ "$PYTHON_VERSION" == "python3" ]];
-          then 
-               pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
-          else
-               pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py2-none-any.whl";
-          fi;
+          pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
 
     # PolyChord install
