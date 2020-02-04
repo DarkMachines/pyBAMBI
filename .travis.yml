@@ -29,7 +29,6 @@ addons:
     homebrew:
         packages: 
             - gcc
-            - python3
             - imagemagick
         update: true
 
