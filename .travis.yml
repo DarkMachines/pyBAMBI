@@ -37,7 +37,7 @@ before_install:
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew unlink gcc && brew link gcc;
-          python3 -m venv venv;
+          /usr/local/bin/python3 -m venv venv;
           source venv/bin/activate;
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-1.12.0-py3-none-any.whl";
       fi
