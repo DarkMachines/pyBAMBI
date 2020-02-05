@@ -13,9 +13,8 @@
 matrix:
     include:
         - os: osx
-          language: generic
-          env: MPI=
-
+          language: sh
+          env: TOXENV=py3 MPI=
 
 # System packages
 addons:
@@ -30,16 +29,17 @@ addons:
         packages: 
             - gcc
             - imagemagick
-        update: true
+            - python3
 
 before_install:
     # OSX setup
     - if [[ "$TRAVIS_OS_NAME" == "osx" ]];
       then 
           brew unlink gcc && brew link gcc;
-          /usr/local/bin/python3 -m venv venv;
-          source venv/bin/activate;
-          pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-2.1.0-cp37-cp37m-macosx_10_9_x86_64.whl";
+          pip3 install virtualenv;
+          virtualenv -p python3 ~/venv;
+          source ~/venv/bin/activate;
+          pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-2.1.0-cp36-cp36m-macosx_10_9_x86_64.whl";
       fi
 
     # PolyChord install
