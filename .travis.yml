@@ -39,7 +39,7 @@ before_install:
           pip3 install virtualenv;
           virtualenv -p python3 ~/venv;
           source ~/venv/bin/activate;
-          pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-2.1.0-cp36-cp36m-macosx_10_9_x86_64.whl";
+          pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-2.1.0-cp37-cp37m-macosx_10_9_x86_64.whl";
       fi
 
     # PolyChord install
