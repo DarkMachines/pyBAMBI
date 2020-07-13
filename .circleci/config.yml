@@ -13,7 +13,7 @@ jobs:
           name: install Debian dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install gfortran libblas3 liblapack3 cmake
+            sudo apt-get install gfortran libblas3 liblapack3 cmake openmpi-bin libopenmpi-dev
 
       - run:
           name: setup Python venv
