@@ -24,12 +24,8 @@ jobs:
           name: PolyChord install
           command: |
             . venv/bin/activate
-            git clone https://github.com/PolyChord/PolyChordLite PolyChord
-            cd PolyChord
-            make MPI= pypolychord
             pip install numpy
-            python setup.py install
-            cd ..
+            pip install git+https://github.com/PolyChord/PolyChordLite.git@master
 
       - run:
           name: MultiNest install
