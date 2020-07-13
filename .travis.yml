@@ -1,13 +1,13 @@
 # linux matrix
-#language: python
-#os: linux
-#python:
-#    - "3.7"
-#    - "3.6"
-#    - "3.5"
-#env:
-#  - MPI=
-#  - MPI=1
+language: python
+os: linux
+python:
+    - "3.8"
+    - "3.7"
+    - "3.6"
+env:
+  - MPI=
+  - MPI=1
 
 # OSX matrix
 matrix:
@@ -41,17 +41,10 @@ before_install:
           pip install --upgrade "https://storage.googleapis.com/tensorflow/mac/cpu/tensorflow-2.1.0-cp37-cp37m-macosx_10_9_x86_64.whl";
       fi
 
-    # PolyChord install
     - pip install numpy
-    - git clone https://github.com/PolyChord/PolyChordLite PolyChord
-    - cd PolyChord
-    - make MPI=$MPI pypolychord
-    - if [ "$MPI" ]; then 
-          CC=mpicc CXX=mpicxx python setup.py install;
-      else 
-          python setup.py install;
-      fi
-    - cd ..
+
+    # PolyChord install
+    - pip install git+https://github.com/PolyChord/PolyChordLite.git@master
 
     # MultiNest install
     - git clone https://github.com/farhanferoz/MultiNest MultiNest_repo
