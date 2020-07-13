@@ -25,7 +25,7 @@ jobs:
           command: |
             . venv/bin/activate
             pip install numpy
-            pip install git+https://github.com/PolyChord/PolyChordLite.git@master
+            FC=mpif90 pip install git+https://github.com/PolyChord/PolyChordLite.git@master
 
       - run:
           name: MultiNest install
