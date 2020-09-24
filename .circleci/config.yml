@@ -28,7 +28,7 @@ jobs:
             . venv/bin/activate
             git clone https://github.com/PolyChord/PolyChordLite PolyChord
             cd PolyChord
-            pip install numpy
+            pip install numpy scipy 
             pip install . --global-option="--no-mpi" 
             cd ..
 
