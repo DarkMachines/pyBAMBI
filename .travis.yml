@@ -43,10 +43,18 @@ before_install:
       fi
 
     - pip install --upgrade pip
-    - pip install numpy
 
     # PolyChord install
+    - pip install numpy
+    - git clone https://github.com/PolyChord/PolyChordLite PolyChord
+    - cd PolyChord
     - pip install git+https://github.com/PolyChord/PolyChordLite.git@master;
+    - if [ "$MPI" -eq 1 ]; then
+          pip install .;
+      else 
+          pip install . --global-option="--no-mpi";
+      fi
+    - cd ..
 
     # MultiNest install
     - git clone https://github.com/farhanferoz/MultiNest MultiNest_repo

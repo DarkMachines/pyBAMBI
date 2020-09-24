@@ -13,7 +13,7 @@ jobs:
           name: install Debian dependencies
           command: |
             sudo apt-get update
-            sudo apt-get install gfortran libblas3 liblapack3 cmake openmpi-bin libopenmpi-dev
+            sudo apt-get install gfortran libblas3 liblapack3 cmake
 
       - run:
           name: setup Python venv
@@ -24,9 +24,11 @@ jobs:
           name: PolyChord install
           command: |
             . venv/bin/activate
-            pip install --upgrade pip
+            git clone https://github.com/PolyChord/PolyChordLite PolyChord
+            cd PolyChord
             pip install numpy
-            FC=mpif90 pip install git+https://github.com/PolyChord/PolyChordLite.git@master
+            pip install . --global-option="--no-mpi" 
+            cd ..
 
       - run:
           name: MultiNest install
