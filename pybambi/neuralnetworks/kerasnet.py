@@ -8,9 +8,9 @@ Date: December 2018
 """
 import numpy
 from pybambi.neuralnetworks.base import Predictor
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.callbacks import EarlyStopping
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.callbacks import EarlyStopping
 
 
 class KerasNetInterpolation(Predictor):
