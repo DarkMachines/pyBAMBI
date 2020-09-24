@@ -6,7 +6,7 @@ python:
     - "3.7"
     - "3.6"
 env:
-  - MPI=
+  - MPI=0
   - MPI=1
 
 # OSX matrix
@@ -14,7 +14,7 @@ matrix:
     include:
         - os: osx
           language: sh
-          env: TOXENV=py3 MPI=
+          env: TOXENV=py3 MPI=0
 
 # System packages
 addons:
@@ -46,11 +46,7 @@ before_install:
     - pip install numpy
 
     # PolyChord install
-    - if [ "$MPI" ]; then 
-          FC=mpif90 pip install git+https://github.com/PolyChord/PolyChordLite.git@master;
-      else
-          FC=gfortran pip install git+https://github.com/PolyChord/PolyChordLite.git@master;
-      fi;
+    - pip install git+https://github.com/PolyChord/PolyChordLite.git@master;
 
     # MultiNest install
     - git clone https://github.com/farhanferoz/MultiNest MultiNest_repo
@@ -58,7 +54,7 @@ before_install:
     - mkdir -p MultiNest/build
     - cd MultiNest/build
     - cmake ..
-    - if [ "$MPI" ]; then 
+    - if [ "$MPI" -eq 1 ]; then 
           make multinest_mpi_shared;
       else
           make multinest_shared;
@@ -78,7 +74,7 @@ install:
     - pip install -r requirements.txt
     - pip install pytest-cov codecov
     - pip install flake8 pydocstyle sphinx sphinx_rtd_theme
-    - if [ "$MPI" ]; then pip install mpi4py; fi
+    - if [ "$MPI" -eq 1 ]; then pip install mpi4py; fi
 
 before_script:
     # Test for pep-compliance
@@ -92,7 +88,7 @@ before_script:
 
 # Run tests
 script:
-    - if [ "$MPI" ];
+    - if [ "$MPI" -eq 1 ];
       then mpirun -np 2 python -m pytest tests;
       else python -m pytest tests --cov=pybambi;
       fi
