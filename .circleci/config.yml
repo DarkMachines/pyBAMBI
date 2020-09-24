@@ -19,12 +19,12 @@ jobs:
           name: setup Python venv
           command: |
             python3 -m venv venv
-            pip install --upgrade pip
 
       - run:
           name: PolyChord install
           command: |
             . venv/bin/activate
+            pip install --upgrade pip
             pip install numpy
             FC=mpif90 pip install git+https://github.com/PolyChord/PolyChordLite.git@master
 
