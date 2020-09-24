@@ -68,12 +68,6 @@ jobs:
             flake8 pybambi tests 
 
       - run: 
-          name: sphinx-build
-          command: |
-            . venv/bin/activate
-            sphinx-build docs/source docs/build -nW
-
-      - run: 
           name: pydocstyle
           command: |
             . venv/bin/activate
