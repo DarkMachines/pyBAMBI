@@ -19,7 +19,7 @@ jobs:
           name: setup Python venv
           command: |
             python3 -m venv venv
-            pip install --upgrage pip
+            pip install --upgrade pip
 
       - run:
           name: PolyChord install
